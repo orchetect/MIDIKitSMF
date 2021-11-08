@@ -275,7 +275,7 @@ extension MIDI.File.Chunk.Track: CustomStringConvertible,
             let deltaString = $0.smfUnwrappedEvent.delta.description
                 .padding(toLength: 15, withPad: " ", startingAt: 0)
             
-            outputString += "    \(deltaString) \($0.smfUnwrappedEvent)".newLined
+            outputString += "    \(deltaString) \($0.smfUnwrappedEvent.event.smfDescription)".newLined
         }
         
         outputString += ")"

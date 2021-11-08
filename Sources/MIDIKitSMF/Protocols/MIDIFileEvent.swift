@@ -32,3 +32,11 @@ public protocol MIDIFileEvent {
     var smfDebugDescription: String { get }
     
 }
+
+extension MIDIFileEvent /* : CustomStringConvertible, CustomDebugStringConvertible */ {
+    
+    public var description: String { smfDescription }
+    
+    public var debugDescription: String { smfDebugDescription }
+    
+}

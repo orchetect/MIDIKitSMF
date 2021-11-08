@@ -20,7 +20,7 @@ extension MIDI.File: CustomStringConvertible,
 
         chunks.enumerated().forEach {
             // indent each line with additional spaces
-            outputString += "Chunk #\($0.offset + 1): \($0.element)"
+            outputString += "Chunk #\($0.offset + 1): \($0.element.description)"
                 .split(separator: Character.newLine)
                 .reduce("") { $0 + "    \($1)".newLined }
         }
