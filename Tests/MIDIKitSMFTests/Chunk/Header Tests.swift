@@ -25,7 +25,7 @@ final class Chunk_Header_Tests: XCTestCase {
                                     0x00, 0x01,
                                     0x02, 0xD0]
         
-        XCTAssertEqual(try! header.rawData(withChunkCount: 1).bytes, rawData)
+        XCTAssertEqual(try! header.midi1SMFRawBytes(withChunkCount: 1).bytes, rawData)
         
     }
     
@@ -37,7 +37,7 @@ final class Chunk_Header_Tests: XCTestCase {
                                     0x00, 0x01,
                                     0x02, 0xD0]
         
-        let header = try! MIDI.File.Chunk.Header(rawBuffer: rawData.data)
+        let header = try! MIDI.File.Chunk.Header(midi1SMFRawBytes: rawData.data)
         
         XCTAssertEqual(header.format, .singleTrack)
         XCTAssertEqual(header.timing, .musical(ticksPerQuarterNote: 720))
@@ -58,7 +58,7 @@ final class Chunk_Header_Tests: XCTestCase {
                                     0x00, 0x02,
                                     0x02, 0xD0]
         
-        XCTAssertEqual(try! header.rawData(withChunkCount: 2).bytes, rawData)
+        XCTAssertEqual(try! header.midi1SMFRawBytes(withChunkCount: 2).bytes, rawData)
         
     }
     
@@ -70,7 +70,7 @@ final class Chunk_Header_Tests: XCTestCase {
                                     0x00, 0x02,
                                     0x02, 0xD0]
         
-        let header = try! MIDI.File.Chunk.Header(rawBuffer: rawData.data)
+        let header = try! MIDI.File.Chunk.Header(midi1SMFRawBytes: rawData.data)
         
         XCTAssertEqual(header.format, .multipleTracksSynchronous)
         XCTAssertEqual(header.timing, .musical(ticksPerQuarterNote: 720))
@@ -91,7 +91,7 @@ final class Chunk_Header_Tests: XCTestCase {
                                     0x00, 0x02,
                                     0x02, 0xD0]
         
-        XCTAssertEqual(try! header.rawData(withChunkCount: 2).bytes, rawData)
+        XCTAssertEqual(try! header.midi1SMFRawBytes(withChunkCount: 2).bytes, rawData)
         
     }
     
@@ -103,7 +103,7 @@ final class Chunk_Header_Tests: XCTestCase {
                                     0x00, 0x02,
                                     0x02, 0xD0]
         
-        let header = try! MIDI.File.Chunk.Header(rawBuffer: rawData.data)
+        let header = try! MIDI.File.Chunk.Header(midi1SMFRawBytes: rawData.data)
         
         XCTAssertEqual(header.format, .multipleTracksAsynchronous)
         XCTAssertEqual(header.timing, .musical(ticksPerQuarterNote: 720))

@@ -24,7 +24,7 @@ extension MIDI.File {
 
         // ____ Header ____
 
-        try data += header.rawData(withChunkCount: chunks.count)
+        try data += header.midi1SMFRawBytes(withChunkCount: chunks.count)
 
         // ____ Chunks ____
 

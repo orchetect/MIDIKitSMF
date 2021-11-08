@@ -88,15 +88,15 @@ extension MIDI.File.Chunk.Header {
     
     static let staticRawBytesLength = 14
     
-    init(rawBuffer: Data) throws {
+    init(midi1SMFRawBytes: Data) throws {
         
-        guard rawBuffer.count >= Self.staticRawBytesLength else {
+        guard midi1SMFRawBytes.count >= Self.staticRawBytesLength else {
             throw MIDI.File.DecodeError.malformed(
                 "Header is not correct. File may not be a MIDI file."
             )
         }
         
-        var dataReader = DataReader(rawBuffer)
+        var dataReader = DataReader(midi1SMFRawBytes)
         
         // Header descriptor
         
@@ -172,7 +172,7 @@ extension MIDI.File.Chunk.Header {
 
 extension MIDI.File.Chunk.Header {
     
-    func rawData(withChunkCount: Int) throws -> Data {
+    func midi1SMFRawBytes(withChunkCount: Int) throws -> Data {
         
         // The header chunk appears at the beginning of the file, and describes the file in three ways.
         // The header chunk always looks like:

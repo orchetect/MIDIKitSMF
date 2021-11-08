@@ -38,7 +38,7 @@ extension MIDI.File {
             )
         }
 
-        header = try Chunk.Header(rawBuffer: readHeader)
+        header = try Chunk.Header(midi1SMFRawBytes: readHeader)
 
         // chunks
 
