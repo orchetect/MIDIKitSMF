@@ -9,8 +9,6 @@ public extension MIDI.File {
     
     enum DecodeError: Error {
         
-        // more cases will be added later when MIDI file reading/decoding is added to the library
-
         case fileNotFound
         case malformedURL
         case fileReadError

@@ -39,11 +39,14 @@ extension MIDI {
         
         /// Initialize by loading the contents of a MIDI file's raw data.
         public init(rawData: Data) throws {
+            
             try decode(rawData: rawData)
+            
         }
         
         /// Initialize by loading the contents of a MIDI file from disk.
         public init(midiFile path: String) throws {
+            
             guard fileManager.fileExists(atPath: path) else {
                 throw DecodeError.fileNotFound
             }
@@ -53,18 +56,23 @@ extension MIDI {
             }
             
             try self.init(midiFile: url)
+            
         }
         
         /// Initialize by loading the contents of a MIDI file from disk.
         public init(midiFile url: URL) throws {
+            
             let data = try Data(contentsOf: url)
             
             try decode(rawData: data)
+            
         }
         
         /// Returns raw MIDI file data. Throws an error if a problem occurs.
         public func rawData() throws -> Data {
+            
             try encode()
+            
         }
         
     }
