@@ -7,11 +7,11 @@ import Foundation
 import MIDIKit
 @_implementationOnly import OTCore
 
-// MARK: - timing
+// MARK: - timeBase
 
 extension MIDI.File {
     
-    /// MIDI file timing mode as described in the MIDI file header.
+    /// MIDI file timbase as described in the MIDI file header.
     public enum TimeBase: Equatable {
         
         /// Musical: Delta-time ticks per quarter note (PPQN / PPQ / PPQBase).
@@ -110,7 +110,7 @@ extension MIDI.File.TimeBase: CustomStringConvertible,
     
     public var debugDescription: String {
         
-        "timing(" + description + ")"
+        "timeBase(" + description + ")"
         
     }
     

@@ -24,7 +24,7 @@ extension MIDI.File {
         // reset values to a known state
 
         chunks = []
-        header = .init() // resets format and timing
+        header = .init() // resets format and timeBase
 
         // begin parse
 

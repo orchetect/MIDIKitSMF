@@ -15,7 +15,7 @@ extension MIDI.File: CustomStringConvertible,
 
         outputString += "MIDIFile(".newLined
         outputString += "  format: \(format)".newLined
-        outputString += "  timing: \(timing)".newLined
+        outputString += "  timebase: \(timeBase)".newLined
         outputString += "  chunks (\(chunks.count)): ".newLined
 
         chunks.enumerated().forEach {
@@ -37,7 +37,7 @@ extension MIDI.File: CustomStringConvertible,
 
         outputString += "MIDIFile(".newLined
         outputString += "  format: \(format.debugDescription)".newLined
-        outputString += "  timing: \(timing.debugDescription)".newLined
+        outputString += "  timebase: \(timeBase.debugDescription)".newLined
         outputString += "  chunks (\(chunks.count)): ".newLined
 
         chunks.enumerated().forEach {

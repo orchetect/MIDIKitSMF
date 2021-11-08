@@ -9,7 +9,8 @@ import MIDIKit
 
 extension MIDI.File {
     
-    /// For use in the MIDI file header when `.timecode` timing mode is selected
+    /// Timecode Frame Rate
+    /// (For use in the MIDI file header when `.timecode` timebase is selected.)
     ///
     /// MIDI file header time division 2-byte value:
     /// Bits 8 - 15 (i.e. the first byte) specifies the number of frames per second (fps), and will be one of the four SMPTE standards - 24, 25, 29d or 30, though expressed as a negative value (using 2's complement notation), as follows:

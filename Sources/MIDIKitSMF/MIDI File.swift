@@ -24,9 +24,9 @@ extension MIDI {
         }
         
         /// Specify whether the MIDI file stores time values in bars & beats (musical) or timecode
-        public var timing: TimeBase {
-            get { header.timing }
-            set { header.timing = newValue }
+        public var timeBase: TimeBase {
+            get { header.timeBase }
+            set { header.timeBase = newValue }
         }
         
         /// Storage for tracks in the MIDI file

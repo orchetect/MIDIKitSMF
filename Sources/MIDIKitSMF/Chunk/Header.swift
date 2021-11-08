@@ -62,15 +62,15 @@ extension MIDI.File.Chunk {
         
         public var format: MIDI.File.Format = .multipleTracksSynchronous
         
-        public var timing: MIDI.File.TimeBase = .musical(ticksPerQuarterNote: 960)
+        public var timeBase: MIDI.File.TimeBase = .musical(ticksPerQuarterNote: 960)
         
         public init() { }
         
         public init(format: MIDI.File.Format,
-                    timing: MIDI.File.TimeBase) {
+                    timeBase: MIDI.File.TimeBase) {
             
             self.format = format
-            self.timing = timing
+            self.timeBase = timeBase
             
         }
         
@@ -149,13 +149,13 @@ extension MIDI.File.Chunk.Header {
             )
         }
         
-        guard let timing = MIDI.File.TimeBase(rawBytes: timeDivision.bytes) else {
+        guard let timeBase = MIDI.File.TimeBase(rawBytes: timeDivision.bytes) else {
             throw MIDI.File.DecodeError.malformed(
-                "Could not decode timing mode."
+                "Could not decode timebase."
             )
         }
         
-        self.timing = timing
+        self.timeBase = timeBase
         
         // technically Format 0 can only have one track, so header should always state a track count of 1
         if midiFileFormat == .singleTrack,
@@ -214,12 +214,12 @@ extension MIDI.File.Chunk.Header {
         }
         
         // Time division: ticks per quarter note
-        // Specifies the timing interval to be used, and whether timecode (Hrs.Mins.Secs.Frames) or metrical (Bar.Beat) timing is to be used.
+        // Specifies the timing interval to be used, and whether timecode (Hrs.Mins.Secs.Frames) or metrical (Bar.Beat) timeBase is to be used.
         // 15-bit variable-length encoded value: big endian, with top bit reserved for timecode flag
-        // Bit 15 = 0 : metrical timing
+        // Bit 15 = 0 : metrical timeBase
         // Bit 15 = 1 : timecode
         
-        data += timing.rawData
+        data += timeBase.rawData
         
         return data
         

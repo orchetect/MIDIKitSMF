@@ -9,15 +9,15 @@
 import OTCore
 import XCTest
 
-final class Timing_Tests: XCTestCase {
+final class TimeBase_Tests: XCTestCase {
     
     func testInitMusical() {
         
-        let timing = MIDI.File.TimeBase.musical(ticksPerQuarterNote: 480)
+        let timeBase = MIDI.File.TimeBase.musical(ticksPerQuarterNote: 480)
         
         let rawData: [MIDI.Byte] = [0x01, 0xE0]
         
-        XCTAssertEqual(timing.rawData.bytes, rawData)
+        XCTAssertEqual(timeBase.rawData.bytes, rawData)
         
         do {
             guard case let .musical(tpq)
@@ -39,11 +39,11 @@ final class Timing_Tests: XCTestCase {
     
     func testInitTimecode() {
         
-        let timing = MIDI.File.TimeBase.timecode(smpteFormat: ._25fps, ticksPerFrame: 80)
+        let timeBase = MIDI.File.TimeBase.timecode(smpteFormat: ._25fps, ticksPerFrame: 80)
         
         let rawData: [MIDI.Byte] = [0b1110_0111, 0x50]
         
-        XCTAssertEqual(timing.rawData.bytes, rawData)
+        XCTAssertEqual(timeBase.rawData.bytes, rawData)
         
         do {
             guard case let .timecode(smpteFormat, ticksPerFrame)

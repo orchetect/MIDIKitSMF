@@ -1,5 +1,5 @@
 //
-//  Event DeltaTime.swift
+//  DeltaTime.swift
 //  MIDIKitSMF • https://github.com/orchetect/MIDIKitSMF
 //
 
@@ -18,6 +18,7 @@ extension MIDI.File {
         case ticks(UInt32)
 
         // TODO: ***** Could add milliseconds calculation later
+        // case seconds(TimeInterval)
         // case milliseconds(Double)
 
         case wholeNote
@@ -39,7 +40,7 @@ extension MIDI.File.DeltaTime {
     public init?(ticks: UInt32,
                  using timeBase: MIDI.File.TimeBase) {
         
-        #warning("> TODO: add init here that sets self = a certain enum case based on provided ticks and provided timing mode")
+        #warning("> TODO: add init here that sets self = a certain enum case based on provided ticks and provided timebase")
         
         self = .ticks(ticks)
         
@@ -53,9 +54,9 @@ extension MIDI.File.DeltaTime: Equatable {
     
     public static func == (lhs: Self, rhs: Self) -> Bool {
         
-        let timing = MIDI.File.TimeBase.musical(ticksPerQuarterNote: 960)
+        let timeBase = MIDI.File.TimeBase.musical(ticksPerQuarterNote: 960)
 
-        return lhs.ticksValue(using: timing) == rhs.ticksValue(using: timing)
+        return lhs.ticksValue(using: timeBase) == rhs.ticksValue(using: timeBase)
         
     }
     
@@ -102,18 +103,18 @@ extension MIDI.File.DeltaTime: CustomStringConvertible,
 
 extension MIDI.File.DeltaTime {
     
-    public func ticksValue(using timing: MIDI.File.TimeBase) -> UInt32 {
+    public func ticksValue(using timeBase: MIDI.File.TimeBase) -> UInt32 {
         
         let midiFileTicksPerQuarter: UInt32
 
-        switch timing {
+        switch timeBase {
         case let .musical(ticksPerQuarterNote):
             midiFileTicksPerQuarter = UInt32(ticksPerQuarterNote)
 
         case let .timecode(smpteFormat, ticksPerFrame):
             _ = smpteFormat
             _ = ticksPerFrame
-            fatalError("Timecode timing mode not implemented yet.")
+            fatalError("Timecode timebase not implemented yet.")
         }
 
         switch self {

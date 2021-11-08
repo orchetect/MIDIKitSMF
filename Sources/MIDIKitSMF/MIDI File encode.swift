@@ -35,7 +35,7 @@ extension MIDI.File {
             switch chunk {
             case let .track(track):
                 chunkIdentifier = track.identifier
-                chunkData += track.midi1SMFRawBytes(using: timing)
+                chunkData += track.midi1SMFRawBytes(using: timeBase)
 
             case let .other(unrecognizedChunk):
                 chunkIdentifier = unrecognizedChunk.identifier

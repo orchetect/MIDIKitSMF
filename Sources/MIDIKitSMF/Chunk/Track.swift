@@ -214,13 +214,13 @@ extension MIDI.File.Chunk.Track {
 extension MIDI.File.Chunk.Track {
     
     /// Raw data block, excluding the header identifier and length
-    func midi1SMFRawBytes(using timing: MIDI.File.TimeBase) -> Data {
+    func midi1SMFRawBytes(using timeBase: MIDI.File.TimeBase) -> Data {
         
         var data = Data()
         
         for event in events {
             let unwrapped = event.smfUnwrappedEvent
-            data.append(deltaTime: unwrapped.delta.ticksValue(using: timing))
+            data.append(deltaTime: unwrapped.delta.ticksValue(using: timeBase))
             data += unwrapped.event.midi1SMFRawBytes
         }
         

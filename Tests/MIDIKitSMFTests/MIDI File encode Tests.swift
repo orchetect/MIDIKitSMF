@@ -16,7 +16,7 @@ final class MIDIFileEncodeTests: XCTestCase {
         var midiFile = MIDI.File()
         
         midiFile.format = .singleTrack // Type 1
-        midiFile.timing = .musical(ticksPerQuarterNote: 480)
+        midiFile.timeBase = .musical(ticksPerQuarterNote: 480)
         
         midiFile.chunks = [
             .track([
@@ -34,7 +34,7 @@ final class MIDIFileEncodeTests: XCTestCase {
         
         var midiFile = MIDI.File()
         
-        midiFile.timing = .musical(ticksPerQuarterNote: 480)
+        midiFile.timeBase = .musical(ticksPerQuarterNote: 480)
         
         // 3 tracks
         
