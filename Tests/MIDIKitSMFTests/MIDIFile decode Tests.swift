@@ -1,17 +1,18 @@
 //
 //  MIDIFile decode Tests.swift
-//  MIDIKitSMF
-//
-//  Created by Steffan Andrews on 2021-02-01.
-//  Copyright © 2021 Steffan Andrews. All rights reserved.
+//  MIDIKitSMF • https://github.com/orchetect/MIDIKitSMF
 //
 
 #if !os(watchOS)
 
-    @testable import MIDIKitSMF
-    import OTCore
-    import XCTest
+@testable import MIDIKitSMF
+import OTCore
+import XCTest
 
-    final class MIDIFileDecodeTests: XCTestCase {}
+final class MIDIFileDecodeTests: XCTestCase {
+    
+    // empty for now
+    
+}
 
 #endif

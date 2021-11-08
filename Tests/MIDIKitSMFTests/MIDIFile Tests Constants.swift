@@ -1,12 +1,10 @@
 //
-//  Constants.swift
-//  MIDIKitSMF
-//
-//  Created by Steffan Andrews on 2021-02-01.
-//  Copyright © 2021 Steffan Andrews. All rights reserved.
+//  MIDIFile Tests Constants.swift
+//  MIDIKitSMF • https://github.com/orchetect/MIDIKitSMF
 //
 
 enum kMIDIFile {
+    
     static let DP8Markers: [UInt8] = [
         0x4D, 0x54, 0x68, 0x64, // MThd
         0x00, 0x00, 0x00, 0x06, // 6 header bytes
@@ -48,4 +46,5 @@ enum kMIDIFile {
         0x00, 0xFF, 0x20, 0x01, 0x00, // channel prefix: chan 0
         0x00, 0xFF, 0x2F, 0x00, // end of track
     ]
+    
 }
