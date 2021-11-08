@@ -6,7 +6,8 @@
 import MIDIKit
 @_implementationOnly import OTCore
 
-extension MIDI.File: CustomStringConvertible, CustomDebugStringConvertible {
+extension MIDI.File: CustomStringConvertible,
+                     CustomDebugStringConvertible {
     
     public var description: String {
         
