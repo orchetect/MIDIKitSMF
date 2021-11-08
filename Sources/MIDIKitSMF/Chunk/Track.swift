@@ -43,7 +43,8 @@ extension MIDI.File.Chunk.Track: MIDIFileChunk {
 
 extension MIDI.File.Chunk.Track {
     
-    public init(rawBuffer: [MIDI.Byte]) throws {
+    /// Init from MIDI file buffer.
+    public init(midi1SMFRawBytesStream rawBuffer: [MIDI.Byte]) throws {
         
         guard rawBuffer.count >= 8 else {
             throw MIDI.File.DecodeError.malformed(
@@ -75,12 +76,12 @@ extension MIDI.File.Chunk.Track {
             )
         }
         
-        try self.init(rawData: Array(rawBuffer[8 ... (8 + chunkLength)]))
+        try self.init(midi1SMFRawBytes: Array(rawBuffer[8 ... (8 + chunkLength)]))
         
     }
     
     /// Init from raw data block, excluding the header identifier and length
-    internal init(rawData: [MIDI.Byte]) throws {
+    internal init(midi1SMFRawBytes rawData: [MIDI.Byte]) throws {
         
         // chunk data
         
@@ -214,7 +215,7 @@ extension MIDI.File.Chunk.Track {
 extension MIDI.File.Chunk.Track {
     
     /// Raw data block, excluding the header identifier and length
-    func rawData(using timing: MIDI.File.TimeBase) -> Data {
+    func midi1SMFRawBytes(using timing: MIDI.File.TimeBase) -> Data {
         
         var data = Data()
         

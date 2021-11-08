@@ -64,8 +64,8 @@ extension MIDI.File.Chunk: CustomStringConvertible,
 
 extension MIDI.File.Chunk {
     
-    /// Unwraps the enum case and returns the `MIDI.File.Chunk` contained within, typed as `MIDI.FileChunk` protocol.
-    public var unwrapped: MIDIFileChunk {
+    /// Unwraps the enum case and returns the `MIDI.File.Chunk` contained within, typed as `MIDIFileChunk` protocol.
+    public var unwrappedChunk: MIDIFileChunk {
         
         switch self {
         case let .track(chunk):
@@ -82,7 +82,7 @@ extension MIDI.File.Chunk {
 extension MIDIFileChunk {
     
     /// Wraps the concrete struct in its corresponding `MIDI.File.Chunk` enum case wrapper.
-    public var wrapped: MIDI.File.Chunk {
+    public var wrappedChunk: MIDI.File.Chunk {
         
         switch self {
         case let chunk as MIDI.File.Chunk.Track:

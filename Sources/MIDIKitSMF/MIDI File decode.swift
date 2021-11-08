@@ -83,7 +83,7 @@ extension MIDI.File {
                 let newTrack: Chunk.Track
 
                 do {
-                    newTrack = try Chunk.Track(rawData: trackData.bytes)
+                    newTrack = try Chunk.Track(midi1SMFRawBytes: trackData.bytes)
                 } catch let error as DecodeError {
                     // append some context for the error and rethrow it
 
