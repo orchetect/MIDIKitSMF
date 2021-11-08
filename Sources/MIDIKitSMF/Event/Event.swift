@@ -356,7 +356,7 @@ extension MIDI.File.Event {
 extension MIDI.File.Event {
     
     /// Unwraps the enum case and returns the `MIDI.File.Event` contained within, typed as `MIDIFileEvent` protocol.
-    public var unwrapped: (delta: MIDI.File.DeltaTime, event: MIDIFileEvent) {
+    public var smfUnwrappedEvent: (delta: MIDI.File.DeltaTime, event: MIDIFileEvent) {
         
         switch self {
         case .cc(let delta, let event): return (delta: delta, event: event)
@@ -388,7 +388,7 @@ extension MIDI.File.Event {
 extension MIDIFileEvent {
     
     /// Wraps the concrete struct in its corresponding `MIDI.File.Event` enum case wrapper.
-    public func wrapped(delta: MIDI.File.DeltaTime) -> MIDI.File.Event {
+    public func smfWrappedEvent(delta: MIDI.File.DeltaTime) -> MIDI.File.Event {
         
         switch self {
         case let event as MIDI.File.Event.CC: return .cc(delta: delta, event: event)

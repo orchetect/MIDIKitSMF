@@ -170,7 +170,7 @@ extension MIDI.File.Chunk.Track {
                 : foundEvent.bufferLength
                 
                 // add new event to new track
-                newEvents += foundEvent.newEvent.wrapped(delta: newEventDelta)
+                newEvents += foundEvent.newEvent.smfWrappedEvent(delta: newEventDelta)
                 chunkDataReader.advanceBy(chunkBufferLength)
                 
                 // store event in running status
@@ -219,7 +219,7 @@ extension MIDI.File.Chunk.Track {
         var data = Data()
         
         for event in events {
-            let unwrapped = event.unwrapped
+            let unwrapped = event.smfUnwrappedEvent
             data.append(deltaTime: unwrapped.delta.ticksValue(using: timing))
             data += unwrapped.event.midi1SMFRawBytes
         }
@@ -272,10 +272,10 @@ extension MIDI.File.Chunk.Track: CustomStringConvertible,
         outputString += "  events (\(events.count)): ".newLined
         
         events.forEach {
-            let deltaString = $0.unwrapped.delta.description
+            let deltaString = $0.smfUnwrappedEvent.delta.description
                 .padding(toLength: 15, withPad: " ", startingAt: 0)
             
-            outputString += "    \(deltaString) \($0.unwrapped)".newLined
+            outputString += "    \(deltaString) \($0.smfUnwrappedEvent)".newLined
         }
         
         outputString += ")"
@@ -292,10 +292,10 @@ extension MIDI.File.Chunk.Track: CustomStringConvertible,
         outputString += "  events (\(events.count)): ".newLined
         
         events.forEach {
-            let deltaString = $0.unwrapped.delta.debugDescription
+            let deltaString = $0.smfUnwrappedEvent.delta.debugDescription
                 .padding(toLength: 15 + 11, withPad: " ", startingAt: 0)
             
-            outputString += "    \(deltaString) \($0.unwrapped.event.smfDebugDescription)".newLined
+            outputString += "    \(deltaString) \($0.smfUnwrappedEvent.event.smfDebugDescription)".newLined
         }
         
         outputString += ")"
