@@ -167,8 +167,8 @@ extension MIDI.File.Chunk.Track {
                 
                 // offset buffer length if runningStatusByte is present
                 let chunkBufferLength = runningStatusByte != nil
-                ? foundEvent.bufferLength - 1
-                : foundEvent.bufferLength
+                    ? foundEvent.bufferLength - 1
+                    : foundEvent.bufferLength
                 
                 // add new event to new track
                 newEvents += foundEvent.newEvent.smfWrappedEvent(delta: newEventDelta)
