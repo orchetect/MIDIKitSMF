@@ -90,17 +90,11 @@ extension MIDI.File.Event.UnrecognizedMeta: MIDIFileEvent {
         // FF <type> <length> <bytes>
         // type == UInt8 meta type (unrecognized)
         
-        var data: [MIDI.Byte] = []
-        
-        data.append(contentsOf: [0xFF, metaType])
-        
+        [0xFF, metaType] +
         // length of data
-        data.append(contentsOf: MIDI.File.encodeVariableLengthValue(self.data.count))
-        
+        MIDI.File.encodeVariableLengthValue(self.data.count) +
         // data
-        data.append(contentsOf: self.data)
-        
-        return data
+        self.data
         
     }
     

@@ -184,14 +184,14 @@ extension MIDI.File.Chunk.Header {
         var data = Data()
         
         // Header descriptor
-        data.append(contentsOf: identifier.rawData)
+        data += identifier.rawData
         
         // Header length (after this point - format, track count and delta-time values)
         // 0x06 is assuming three 2-byte values are following
-        data.append(contentsOf: [0x00, 0x00, 0x00, 0x06])
+        data += [0x00, 0x00, 0x00, 0x06]
         
         // MIDI Format specification - 0, 1, or 2 (2 bytes: big endian)
-        data.append(contentsOf: format.rawValue.uint16.toData(.bigEndian))
+        data += format.rawValue.uint16.toData(.bigEndian)
         
         // Track count as 16-bit number (2 bytes: big endian)
         if format == .singleTrack {
@@ -206,11 +206,11 @@ extension MIDI.File.Chunk.Header {
                 )
             }
             
-            data.append(contentsOf: 1.uint16.toData(.bigEndian)) // only 1 track allowed
+            data += 1.uint16.toData(.bigEndian) // only 1 track allowed
             
         } else {
             // For format 1 or 2 files, track count can be any value. There is no limitation as far as the file format is concerned, though sequencer software will generally impose a practical limit.
-            data.append(contentsOf: withChunkCount.uint16.toData(.bigEndian))
+            data += withChunkCount.uint16.toData(.bigEndian)
         }
         
         // Time division: ticks per quarter note
@@ -219,7 +219,7 @@ extension MIDI.File.Chunk.Header {
         // Bit 15 = 0 : metrical timing
         // Bit 15 = 1 : timecode
         
-        data.append(timing.rawData)
+        data += timing.rawData
         
         return data
         

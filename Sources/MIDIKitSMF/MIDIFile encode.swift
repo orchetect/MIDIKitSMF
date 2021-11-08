@@ -24,7 +24,7 @@ extension MIDI.File {
 
         // ____ Header ____
 
-        try data.append(header.rawData(withChunkCount: chunks.count))
+        try data += header.rawData(withChunkCount: chunks.count)
 
         // ____ Chunks ____
 
@@ -35,19 +35,19 @@ extension MIDI.File {
             switch chunk {
             case let .track(track):
                 chunkIdentifier = track.identifier
-                chunkData.append(track.rawData(using: timing))
+                chunkData += track.rawData(using: timing)
 
             case let .other(unrecognizedChunk):
                 chunkIdentifier = unrecognizedChunk.identifier
-                chunkData.append(unrecognizedChunk.rawData)
+                chunkData += unrecognizedChunk.rawData
             }
 
             // 4-byte chunk identifier
-            data.append(contentsOf: chunkIdentifier.rawData)
+            data += chunkIdentifier.rawData
 
             // Chunk data length (32-bit 4 byte big endian integer)
             if let trackLength = UInt32(exactly: chunkData.count) {
-                data.append(contentsOf: trackLength.toData(.bigEndian))
+                data += trackLength.toData(.bigEndian)
             } else {
                 // track length overflows max length integer size
                 // maximum track data size is 4.294967296 GB (UInt32.max bytes)
@@ -57,7 +57,7 @@ extension MIDI.File {
             }
 
             // Track events
-            data.append(chunkData)
+            data += chunkData
         }
 
         return data

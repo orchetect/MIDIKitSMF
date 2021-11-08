@@ -98,7 +98,7 @@ extension MIDI.File {
                     }
                 }
 
-                newChunks.append(.track(newTrack))
+                newChunks += .track(newTrack)
 
             default:
                 // as per Standard MIDI File Spec 1.0,
@@ -111,7 +111,7 @@ extension MIDI.File {
                 let newUnrecognizedChunk = Chunk.UnrecognizedChunk(id: chunkTypeString,
                                                                    rawData: readRawData)
 
-                newChunks.append(.other(newUnrecognizedChunk))
+                newChunks += .other(newUnrecognizedChunk)
             }
 
             if dataReader.readPosition >= dataReader.base.count {

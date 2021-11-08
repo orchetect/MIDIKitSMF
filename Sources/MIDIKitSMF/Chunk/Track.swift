@@ -170,7 +170,7 @@ extension MIDI.File.Chunk.Track {
                 : foundEvent.bufferLength
                 
                 // add new event to new track
-                newEvents.append(foundEvent.newEvent.wrapped(delta: newEventDelta))
+                newEvents += foundEvent.newEvent.wrapped(delta: newEventDelta)
                 chunkDataReader.advanceBy(chunkBufferLength)
                 
                 // store event in running status
@@ -221,11 +221,11 @@ extension MIDI.File.Chunk.Track {
         for event in events {
             let unwrapped = event.unwrapped
             data.append(deltaTime: unwrapped.delta.ticksValue(using: timing))
-            data.append(contentsOf: unwrapped.event.midi1SMFRawBytes)
+            data += unwrapped.event.midi1SMFRawBytes
         }
         
         data.append(deltaTime: 0)
-        data.append(contentsOf: Self.chunkEnd)
+        data += Self.chunkEnd
         
         return data
         
