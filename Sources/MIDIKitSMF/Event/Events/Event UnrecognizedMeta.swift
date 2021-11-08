@@ -98,15 +98,15 @@ extension MIDI.File.Event.UnrecognizedMeta: MIDIFileEvent {
         
     }
     
-    public static func initFrom(midi1SMFRawBytesStream rawBuffer: Data) -> InitFromMIDI1SMFRawBytesStreamResult? {
+    public static func initFrom(midi1SMFRawBytesStream rawBuffer: Data) throws -> InitFromMIDI1SMFRawBytesStreamResult {
         
         guard rawBuffer.count >= 3 else {
-            return nil
+            throw MIDI.File.DecodeError.malformed(
+                "Byte length too length."
+            )
         }
         
-        guard let newInstance = try? Self(midi1SMFRawBytes: rawBuffer.bytes) else {
-            return nil
-        }
+        let newInstance = try Self(midi1SMFRawBytes: rawBuffer.bytes)
         
         #warning("> TODO: this is brittle but it may work")
         

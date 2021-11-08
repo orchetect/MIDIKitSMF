@@ -118,8 +118,10 @@ extension MIDI.File.Event.Text: MIDIFileEvent {
         
     }
 
-    public static func initFrom(midi1SMFRawBytesStream rawBuffer: Data) -> InitFromMIDI1SMFRawBytesStreamResult? {
-        try? Self.initFrom(rawBuffer: rawBuffer.bytes)
+    public static func initFrom(midi1SMFRawBytesStream rawBuffer: Data) throws -> InitFromMIDI1SMFRawBytesStreamResult {
+        
+        try Self.initFrom(rawBuffer: rawBuffer.bytes)
+        
     }
 
     internal static func initFrom(

@@ -72,17 +72,17 @@ extension MIDI.Event.Pressure: MIDIFileEvent {
     
     static let midi1SMFFixedRawBytesLength = 2
 
-    public static func initFrom(midi1SMFRawBytesStream rawBuffer: Data) -> InitFromMIDI1SMFRawBytesStreamResult? {
+    public static func initFrom(midi1SMFRawBytesStream rawBuffer: Data) throws -> InitFromMIDI1SMFRawBytesStreamResult {
         
         let requiredData = rawBuffer.prefix(midi1SMFFixedRawBytesLength).bytes
 
         guard requiredData.count == midi1SMFFixedRawBytesLength else {
-            return nil
+            throw MIDI.File.DecodeError.malformed(
+                "Unexpected byte length."
+            )
         }
 
-        guard let newInstance = try? Self(midi1SMFRawBytes: requiredData) else {
-            return nil
-        }
+        let newInstance = try Self(midi1SMFRawBytes: requiredData)
 
         return (newEvent: newInstance,
                 bufferLength: midi1SMFFixedRawBytesLength)

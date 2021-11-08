@@ -155,7 +155,7 @@ extension MIDI.File.Chunk.Track {
             var foundEvent: (newEvent: MIDIFileEvent, bufferLength: Int)?
             
             for eventDef in MIDI.File.Chunk.Track.eventDecodeOrder.concreteTypes {
-                if let success = eventDef.initFrom(midi1SMFRawBytesStream: readBuffer) {
+                if let success = try? eventDef.initFrom(midi1SMFRawBytesStream: readBuffer) {
                     foundEvent = success
                     break // break for-loop lazily
                 }
@@ -189,8 +189,7 @@ extension MIDI.File.Chunk.Track {
                 let byteOffsetString = chunkDataReader.readPosition.hex
                     .stringValue(padTo: 1, prefix: true)
                 
-                let sampleBytes =
-                (1 ... 8)
+                let sampleBytes = (1 ... 8)
                     .reduce([MIDI.Byte]()) {
                         // read as many bytes as possible, up to range.count
                         if let getByte = chunkDataReader.nonAdvancingRead(bytes: $1) {

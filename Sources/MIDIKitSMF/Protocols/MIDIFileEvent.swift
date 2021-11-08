@@ -23,7 +23,7 @@ public protocol MIDIFileEvent {
     typealias InitFromMIDI1SMFRawBytesStreamResult = (newEvent: Self, bufferLength: Int)
     
     /// If it is possible to initialize a new instance of this event from the head of the data buffer, a new instance will be returned along with the byte length traversed from the buffer.
-    static func initFrom(midi1SMFRawBytesStream rawBuffer: Data) -> InitFromMIDI1SMFRawBytesStreamResult?
+    static func initFrom(midi1SMFRawBytesStream rawBuffer: Data) throws -> InitFromMIDI1SMFRawBytesStreamResult
     
     /// Description for the event in a MIDI file context.
     var smfDescription: String { get }
