@@ -1,9 +1,6 @@
 //
 //  MIDIKitSMFTests.swift
-//  MIDIKitSMF
-//
-//  Created by Steffan Andrews on 2020-07-31.
-//  Copyright © 2020 Steffan Andrews. All rights reserved.
+//  MIDIKitSMF • https://github.com/orchetect/MIDIKitSMF
 //
 
 #if !os(watchOS)

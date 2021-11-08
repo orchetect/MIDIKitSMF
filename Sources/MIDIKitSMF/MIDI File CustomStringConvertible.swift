@@ -1,5 +1,5 @@
 //
-//  MIDIFile CustomStringConvertible.swift
+//  MIDI File CustomStringConvertible.swift
 //  MIDIKitSMF • https://github.com/orchetect/MIDIKitSMF
 //
 

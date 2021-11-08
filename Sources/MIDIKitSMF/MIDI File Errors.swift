@@ -1,5 +1,5 @@
 //
-//  MIDIFile Errors.swift
+//  MIDI File Errors.swift
 //  MIDIKitSMF • https://github.com/orchetect/MIDIKitSMF
 //
 

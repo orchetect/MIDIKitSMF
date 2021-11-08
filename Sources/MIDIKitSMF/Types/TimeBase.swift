@@ -16,13 +16,14 @@ public extension MIDI.File {
         
         /// Musical: Delta-time ticks per quarter note (PPQN / PPQ / PPQBase).
         ///
-        /// Common values: 96, 120, 480, 960. Cubase exports at 480 by default. Can also be a larger value if needed.
+        /// Common values: 96, 120, 480, 960. Cubase exports at 480 by default.
+        /// Can also be a larger value if needed.
         /// Consider evenly divisible sub-divisions when determining this value.
         case musical(ticksPerQuarterNote: UInt16)
         
         /// Timecode
         ///
-        /// Typical `ticksPerFrame` values are 4 (corresponding to MIDI Time Code), 8, 10, 80 (corresponding to SMPTE bit resolution), or 100.
+        /// Typical `ticksPerFrame` values are 4 (corresponding to MIDI Timecode), 8, 10, 80 (corresponding to SMPTE bit resolution), or 100.
         ///
         /// (A timing resolution of 1 ms can be achieved by specifying 25 fps and 40 sub-frames, which would be encoded in hex as E7 28.)
         case timecode(smpteFormat: FrameRate, ticksPerFrame: UInt8)

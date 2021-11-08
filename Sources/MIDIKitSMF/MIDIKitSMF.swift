@@ -1,8 +1,6 @@
 //
 //  MIDIKitSMF.swift
-//  MIDIKitSMF
-//
-//  Created by Steffan Andrews on 2021-01-30.
+//  MIDIKitSMF • https://github.com/orchetect/MIDIKitSMF
 //
 
 @_exported import MIDIKit

@@ -1,5 +1,5 @@
 //
-//  MIDIFile Constants.swift
+//  MIDI File Constants.swift
 //  MIDIKitSMF • https://github.com/orchetect/MIDIKitSMF
 //
 
