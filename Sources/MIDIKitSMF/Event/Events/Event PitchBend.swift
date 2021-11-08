@@ -122,28 +122,3 @@ extension MIDI.Event.PitchBend: MIDIFileEvent {
     }
     
 }
-
-// MARK: - Static methods
-
-#warning("> TODO: can delete these after refactor")
-//public extension MIDI.File.Event.PitchBend {
-//    /// Constant representing the maximum value possible.
-//    static let valueUpperBound: UInt16 = 0x3FFF // +8191
-//
-//    /// Constant representing the center value.
-//    static let valueNeutral: UInt16 = 0x2000 // 0
-//
-//    /// Constant representing the minimum value possible.
-//    static let valueLowerBound: UInt16 = 0x0000 // -8192
-//
-//    static func decodeValueBytes(lsb: UInt8, msb: UInt8) -> UInt16 {
-//        UInt16(lsb) + (UInt16(msb) << 7)
-//    }
-//
-//    static func encodeValueBytes(value: UInt16) -> (lsb: UInt8, msb: UInt8) {
-//        let msb = UInt8(value >> 7)
-//        let lsb = UInt8(value & 0x7F)
-//
-//        return (lsb, msb)
-//    }
-//}

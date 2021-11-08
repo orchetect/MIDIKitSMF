@@ -68,13 +68,7 @@ extension MIDI.File.Event.ChannelPrefix: MIDIFileEvent {
         // FF 20 01 cc
         // cc is channel number (0...15)
         
-        var data: [UInt8] = []
-        
-        data.append(contentsOf: MIDI.File.kEventHeaders[.channelPrefix]!)
-        
-        data.append(contentsOf: [channel.uInt8Value])
-        
-        return data
+        MIDI.File.kEventHeaders[.channelPrefix]! + [channel.uInt8Value]
         
     }
     

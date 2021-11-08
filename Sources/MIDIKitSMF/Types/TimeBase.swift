@@ -62,7 +62,7 @@ extension MIDI.File.TimeBase {
         
     }
     
-    public init?(rawBytes bytes: [UInt8]) {
+    public init?(rawBytes bytes: [MIDI.Byte]) {
         
         guard bytes.count == 2 else {
             return nil

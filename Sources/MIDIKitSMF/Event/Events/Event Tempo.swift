@@ -88,9 +88,9 @@ extension MIDI.File.Event.Tempo: MIDIFileEvent {
         // FF 51 03 xx xx xx
         // xx xx xx = 3-byte (24-bit) microseconds per MIDI quarter-note
         
-        var data: [UInt8] = []
+        var data: [MIDI.Byte] = []
         
-        data.append(contentsOf: MIDI.File.kEventHeaders[.tempo]!)
+        data += MIDI.File.kEventHeaders[.tempo]!
         
         var tempoUInt32 = microseconds
         data += Array(NSData(bytes: &tempoUInt32, length: 3) as Data)

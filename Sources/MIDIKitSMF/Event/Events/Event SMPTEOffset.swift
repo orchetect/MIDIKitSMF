@@ -30,7 +30,9 @@ extension MIDI.File.Event {
         }
         
         private mutating func hours_Validate() {
+            
             hours = hours.clamped(to: 0 ... 23)
+            
         }
         
         /// Timecode minutes.
@@ -42,7 +44,9 @@ extension MIDI.File.Event {
         }
         
         private mutating func minutes_Validate() {
+            
             minutes = minutes.clamped(to: 0 ... 59)
+            
         }
         
         /// Timecode seconds.
@@ -54,7 +58,9 @@ extension MIDI.File.Event {
         }
         
         private mutating func seconds_Validate() {
+            
             seconds = seconds.clamped(to: 0 ... 59)
+            
         }
         
         /// Timecode frames.
@@ -66,11 +72,13 @@ extension MIDI.File.Event {
         }
         
         private mutating func frames_Validate() {
+            
             switch frameRate {
             case ._24fps: frames = frames.clamped(to: 0 ... 23)
             case ._25fps: frames = frames.clamped(to: 0 ... 25)
             case ._30fps, ._2997dfps: frames = frames.clamped(to: 0 ... 29)
             }
+            
         }
         
         /// Timecode subframes.
@@ -83,24 +91,30 @@ extension MIDI.File.Event {
         }
         
         private mutating func subframes_Validate() {
+            
             subframes = subframes.clamped(to: 0 ... 99)
+            
         }
         
         public var frameRate: MIDI.File.SMPTEOffsetFrameRate = ._30fps
         
         /// Returns a `Timecode` struct using values contains in `self`.
         public var components: Timecode.Components {
+            
             TCC(h: hours.int,
                 m: minutes.int,
                 s: seconds.int,
                 f: frames.int,
                 sf: subframes.int)
+            
         }
         
         /// Returns a `Timecode` struct using values contains in `self`.
         public var timecode: Timecode {
+            
             components.toTimecode(rawValuesAt: frameRate.timecodeRate,
                                   base: ._100SubFrames)
+            
         }
         
         // MARK: - Init
@@ -235,14 +249,14 @@ extension MIDI.File.Event.SMPTEOffset: MIDIFileEvent {
         //
         // ff is a byte specifying the number of fractional frames, in 100ths of a frame (even in SMPTE-based tracks using a different frame subdivision, defined in the MThd chunk).
         
-        var data: [UInt8] = []
+        var data: [MIDI.Byte] = []
         
-        data.append(contentsOf: MIDI.File.kEventHeaders[.smpteOffset]!) // start bytes
-        data.append(contentsOf: [(frameRate.rawValue << 5) + hours]) // hour & frame rate
-        data.append(contentsOf: [minutes]) // minutes
-        data.append(contentsOf: [seconds]) // seconds
-        data.append(contentsOf: [frames]) // frames
-        data.append(contentsOf: [subframes]) // subframes
+        data += MIDI.File.kEventHeaders[.smpteOffset]! // start bytes
+        data += [(frameRate.rawValue << 5) + hours] // hour & frame rate
+        data += [minutes] // minutes
+        data += [seconds] // seconds
+        data += [frames] // frames
+        data += [subframes] // subframes
         
         return data
         

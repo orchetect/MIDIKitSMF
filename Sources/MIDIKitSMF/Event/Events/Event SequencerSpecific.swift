@@ -16,7 +16,7 @@ extension MIDI.File.Event {
         
         /// Data bytes.
         /// Typically begins with a 1 or 3 byte manufacturer ID, similar to SysEx.
-        public var data: [UInt8] = []
+        public var data: [MIDI.Byte] = []
         
     }
     

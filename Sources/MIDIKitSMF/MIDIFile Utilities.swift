@@ -10,7 +10,7 @@ extension MIDI.File {
     
     // MARK: - Utilities math and number conversion
 
-    static func uint16To2BytesBigEndian(_ number: UInt16) -> [UInt8] {
+    static func uint16To2BytesBigEndian(_ number: UInt16) -> [MIDI.Byte] {
         
         var val = number
 
@@ -19,7 +19,7 @@ extension MIDI.File {
         
     }
 
-    static func uint32To4BytesBigEndian(_ number: UInt32) -> [UInt8] {
+    static func uint32To4BytesBigEndian(_ number: UInt32) -> [MIDI.Byte] {
         
         var val = number
 
@@ -29,9 +29,9 @@ extension MIDI.File {
     }
 
     /// Returns variable length value encoded byte array
-    static func encodeVariableLengthValue<T: BinaryInteger>(_ number: T) -> [UInt8] {
+    static func encodeVariableLengthValue<T: BinaryInteger>(_ number: T) -> [MIDI.Byte] {
         
-        var result: [UInt8] = []
+        var result: [MIDI.Byte] = []
         var count = 0
 
         var parseNum = number
@@ -45,7 +45,7 @@ extension MIDI.File {
             }
 
             // Get lowest 7 bits of current data
-            result[0] = UInt8(parseNum & 0x7F)
+            result[0] = MIDI.Byte(parseNum & 0x7F)
 
             // shift by 7 bits
             parseNum = parseNum >> 7
@@ -65,8 +65,8 @@ extension MIDI.File {
     /// Returns the decoded value and the number of bytes read from the bytes array if successful.
     /// Returns nil if bytes is empty or variable length value could not be read in the expected format (ie: malformed or unexpected data)
     /// Currently returns nil if value overflows a 32-bit unsigned value.
-    static func decodeVariableLengthValue(from bytes: [UInt8]) -> (value: Int,
-                                                                   byteLength: Int)? {
+    static func decodeVariableLengthValue(from bytes: [MIDI.Byte]) -> (value: Int,
+                                                                       byteLength: Int)? {
         
         var result: Int = 0 // don't cast as UInt32 yet, we need room to check for overflow
 
@@ -101,8 +101,8 @@ extension MIDI.File {
     /// Returns the decoded value and the number of bytes read from the bytes array if successful.
     /// Returns nil if bytes is empty or variable length value could not be read in the expected format (ie: malformed or unexpected data)
     /// Currently returns nil if value overflows a 32-bit unsigned value.
-    static func decodeVariableLengthValue(from bytes: inout [UInt8]) -> (value: Int,
-                                                                         byteLength: Int)? {
+    static func decodeVariableLengthValue(from bytes: inout [MIDI.Byte]) -> (value: Int,
+                                                                             byteLength: Int)? {
         
         var result: Int = 0 // don't cast as UInt32 yet, we need room to check for overflow
 

@@ -70,17 +70,18 @@ extension MIDI.File.Event.TimeSignature : MIDIFileEvent {
         
         // FF 58 04 nn dd cc bb
         
-        var data: [UInt8] = []
-        data.append(contentsOf: MIDI.File.kEventHeaders[.timeSignature]!)
+        var data: [MIDI.Byte] = []
         
-        data.append(contentsOf: [numerator, denominator])
+        data += MIDI.File.kEventHeaders[.timeSignature]!
+        
+        data += [numerator, denominator]
         
         // number of MIDI Clocks in a metronome click
-        data.append(contentsOf: [midiClocksBetweenMetronomeClicks])
+        data += [midiClocksBetweenMetronomeClicks]
         
         // number of notated 32nd-notes in a MIDI quarter-note (24 MIDI Clocks)
         // The usual value for this parameter is 8, though some sequencers allow the user to specify that what MIDI thinks of as a quarter note, should be notated as something else.
-        data.append(contentsOf: [numberOf32ndNotesInAQuarterNote]) // 8 32nd-notes
+        data += [numberOf32ndNotesInAQuarterNote] // 8 32nd-notes
         
         return data
         

@@ -25,7 +25,7 @@ extension MIDI.File.Event {
         
         /// Data bytes.
         /// Typically begins with a 1 or 3 byte manufacturer ID, similar to SysEx.
-        public var data: [UInt8] = []
+        public var data: [MIDI.Byte] = []
         
     }
     
@@ -80,7 +80,7 @@ extension MIDI.File.Event.UnrecognizedMeta: MIDIFileEvent {
         // FF <type> <length> <bytes>
         // type == UInt8 meta type (unrecognized)
         
-        var data: [UInt8] = []
+        var data: [MIDI.Byte] = []
         
         data.append(contentsOf: [0xFF, metaType])
         

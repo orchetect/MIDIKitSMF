@@ -43,7 +43,7 @@ extension MIDI.File.Chunk.Track: MIDIFileChunk {
 
 extension MIDI.File.Chunk.Track {
     
-    public init(rawBuffer: [UInt8]) throws {
+    public init(rawBuffer: [MIDI.Byte]) throws {
         
         guard rawBuffer.count >= 8 else {
             throw MIDI.File.DecodeError.malformed(
@@ -134,7 +134,7 @@ extension MIDI.File.Chunk.Track {
             
             // check for running status
             
-            var runningStatusByte: UInt8?
+            var runningStatusByte: MIDI.Byte?
             
             if let testForRunningStatusByte = readBuffer[safe: readBuffer.startIndex] {
                 if testForRunningStatusByte.isContained(in: 0x00 ... 0x7F),
@@ -160,7 +160,7 @@ extension MIDI.File.Chunk.Track {
                 }
             }
             
-            if var foundEvent = foundEvent {
+            if let foundEvent = foundEvent {
                 // inject delta time into event
                 let newEventDelta: MIDI.File.DeltaTime = .ticks(eventDeltaTime.value.uint32)
                 
@@ -190,7 +190,7 @@ extension MIDI.File.Chunk.Track {
                 
                 let sampleBytes =
                 (1 ... 8)
-                    .reduce([UInt8]()) {
+                    .reduce([MIDI.Byte]()) {
                         // read as many bytes as possible, up to range.count
                         if let getByte = chunkDataReader.nonAdvancingRead(bytes: $1) {
                             return getByte.bytes

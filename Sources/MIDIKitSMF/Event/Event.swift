@@ -193,7 +193,7 @@ public extension MIDI.File.Event {
     }
     
     static func sequencerSpecific(_ delta: MIDI.File.DeltaTime = .none,
-                                  data: [UInt8]) -> Self
+                                  data: [MIDI.Byte]) -> Self
     {
         .sequencerSpecific(delta: delta,
                            event: .init(data: data))
@@ -259,7 +259,7 @@ public extension MIDI.File.Event {
     
     static func unrecognizedMeta(_ delta: MIDI.File.DeltaTime = .none,
                                  metaType: UInt8,
-                                 data: [UInt8]) -> Self
+                                 data: [MIDI.Byte]) -> Self
     {
         .unrecognizedMeta(delta: delta,
                           event: .init(metaType: metaType,

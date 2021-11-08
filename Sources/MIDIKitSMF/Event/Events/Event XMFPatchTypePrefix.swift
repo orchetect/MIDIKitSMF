@@ -77,13 +77,7 @@ extension MIDI.File.Event.XMFPatchTypePrefix: MIDIFileEvent {
         // FF 60 <len> <param>
         // len should always be 1, param is always one byte
         
-        var data: [UInt8] = []
-        
-        data.append(contentsOf: MIDI.File.kEventHeaders[.xmfPatchTypePrefix]!)
-        
-        data.append(contentsOf: [0x01, patchSet.rawValue])
-        
-        return data
+        MIDI.File.kEventHeaders[.xmfPatchTypePrefix]! + [0x01, patchSet.rawValue]
         
     }
     
