@@ -68,33 +68,9 @@ extension MIDI.File {
     static func decodeVariableLengthValue(from bytes: [MIDI.Byte]) -> (value: Int,
                                                                        byteLength: Int)? {
         
-        var result: Int = 0 // don't cast as UInt32 yet, we need room to check for overflow
-
-        var count = 0
-
-        if bytes.count < 1 { return nil }
-
-        // while flag bit is set
-        while bytes[count] & 0x80 > 0,
-              count < bytes.count
-        {
-            result = result << 7
-            result = result | (Int(bytes[count]) & 0x7F)
-
-            // validation check: if we overflow UInt32, return nil - input data may be malformed
-            if result > UInt32.max { return nil }
-
-            count += 1
-        }
-
-        // get last byte (the one without the flag bit set)
-        result = result << 7
-        result = result | (Int(bytes[count]) & 0x7F)
-
-        // validation check: if we overflow UInt32, return nil - input data may be malformed
-        if result > UInt32.max { return nil }
-
-        return (value: Int(result), byteLength: count + 1)
+        // make mutable so we can call the `inout` overload of this method and not duplicate code here
+        var bytes = bytes
+        return decodeVariableLengthValue(from: &bytes)
         
     }
 
