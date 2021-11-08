@@ -36,7 +36,8 @@ extension MIDI.File {
 
 extension MIDI.File.DeltaTime {
     
-    public init?(ticks: UInt32, using timeBase: MIDI.File.TimeBase) {
+    public init?(ticks: UInt32,
+                 using timeBase: MIDI.File.TimeBase) {
         
         #warning("> TODO: add init here that sets self = a certain enum case based on provided ticks and provided timing mode")
         

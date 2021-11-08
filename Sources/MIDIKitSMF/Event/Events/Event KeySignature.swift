@@ -36,6 +36,16 @@ extension MIDI.File.Event {
         /// Major (true) or Minor (false) key.
         public var majorKey: Bool = true
         
+        // MARK: - Init
+        
+        public init(flatsOrSharps: Int8,
+                    majorKey: Bool) {
+            
+            self.flatsOrSharps = flatsOrSharps
+            self.majorKey = majorKey
+            
+        }
+        
     }
     
 }

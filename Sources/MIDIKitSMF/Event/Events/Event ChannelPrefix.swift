@@ -22,6 +22,14 @@ public extension MIDI.File.Event {
         /// Channel (1...16) is stored zero-based (0..15).
         public var channel: MIDI.UInt4 = 0
         
+        // MARK: - Init
+        
+        public init(channel: MIDI.UInt4) {
+            
+            self.channel = channel
+            
+        }
+        
     }
     
 }

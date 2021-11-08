@@ -37,7 +37,7 @@ extension MIDI.File.Event {
 
         // MARK: - Init
 
-        public init() {}
+        public init() { }
 
         public init(type: TextEventType,
                     string: ASCIIString) {

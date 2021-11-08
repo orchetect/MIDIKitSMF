@@ -30,6 +30,14 @@ public extension MIDI.File.Event {
             sequence = sequence.clamped(to: 0x0 ... 0x7FFF)
         }
         
+        // MARK: - Init
+        
+        public init(sequence: UInt16) {
+            
+            self.sequence = sequence
+            
+        }
+        
     }
     
 }

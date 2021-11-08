@@ -119,7 +119,7 @@ extension MIDI.File.Event {
         
         // MARK: - Init
         
-        init() {}
+        init() { }
         
         init(hr: UInt8,
              min: UInt8,
@@ -143,7 +143,7 @@ extension MIDI.File.Event {
             let smpteTCAndRate = timecode.scaledToMIDIFileSMPTEFrameRate
             
             let smpteTC = smpteTCAndRate.scaledTimecode
-            ?? Timecode(at: timecode.frameRate) // 00:00:00:00 default
+                ?? Timecode(at: timecode.frameRate) // 00:00:00:00 default
             
             frameRate = smpteTCAndRate.smpteFR
             

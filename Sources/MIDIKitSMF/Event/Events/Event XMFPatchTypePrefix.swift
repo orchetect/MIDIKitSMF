@@ -29,6 +29,14 @@ extension MIDI.File.Event {
         /// (0: GM1, 1: GM2, 2: DLS instruments, supplied in the XMF file)
         public var patchSet: PatchSet = .generalMIDI1
         
+        // MARK: - Init
+        
+        public init(patchSet: MIDI.File.Event.XMFPatchTypePrefix.PatchSet) {
+            
+            self.patchSet = patchSet
+            
+        }
+        
     }
     
 }

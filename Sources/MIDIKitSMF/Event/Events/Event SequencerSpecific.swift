@@ -18,6 +18,14 @@ extension MIDI.File.Event {
         /// Typically begins with a 1 or 3 byte manufacturer ID, similar to SysEx.
         public var data: [MIDI.Byte] = []
         
+        // MARK: - Init
+        
+        public init(data: [MIDI.Byte]) {
+            
+            self.data = data
+            
+        }
+        
     }
     
 }

@@ -52,6 +52,12 @@ extension MIDI.File.Event {
             }
         }
         
+        public init(bpm: Double) {
+            
+            self.bpm = bpm
+            
+        }
+        
     }
     
 }

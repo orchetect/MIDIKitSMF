@@ -31,6 +31,22 @@ extension MIDI.File.Event {
         /// The usual value for this parameter is 8, though some sequencers allow the user to specify that what MIDI thinks of as a quarter note, should be notated as something else.
         public var numberOf32ndNotesInAQuarterNote: UInt8 = 8
         
+        // MARK: - Init
+        
+        public init() { }
+        
+        public init(numerator: UInt8,
+                    denominator: UInt8,
+                    midiClocksBetweenMetronomeClicks: UInt8 = 0x18,
+                    numberOf32ndNotesInAQuarterNote: UInt8 = 8) {
+            
+            self.numerator = numerator
+            self.denominator = denominator
+            self.midiClocksBetweenMetronomeClicks = midiClocksBetweenMetronomeClicks
+            self.numberOf32ndNotesInAQuarterNote = numberOf32ndNotesInAQuarterNote
+            
+        }
+        
     }
     
 }

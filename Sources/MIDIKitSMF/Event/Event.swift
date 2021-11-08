@@ -74,7 +74,7 @@ public extension MIDI.File.Event {
                       event: .init(flatsOrSharps: flatsOrSharps,
                                    majorKey: majorKey))
     }
-      
+    
     static func noteOff(_ delta: MIDI.File.DeltaTime = .none,
                         note: MIDI.Note,
                         velocity: MIDI.Event.Note.Velocity,
@@ -293,9 +293,9 @@ public extension MIDI.File.Event {
 }
 
 extension MIDI.File.Event {
-
+    
     public var eventType: EventType {
-
+        
         switch self {
         case .cc: return .cc
         case .channelPrefix: return .channelPrefix
@@ -318,9 +318,9 @@ extension MIDI.File.Event {
         case .unrecognizedMeta: return .unrecognizedMeta
         case .xmfPatchTypePrefix: return .xmfPatchTypePrefix
         }
-
+        
     }
-
+    
 }
 
 extension MIDI.File.Event {
@@ -354,10 +354,10 @@ extension MIDI.File.Event {
 }
 
 extension MIDI.File.Event {
-
+    
     /// Unwraps the enum case and returns the `MIDI.File.Event` contained within, typed as `MIDIFileEvent` protocol.
     public var unwrapped: (delta: MIDI.File.DeltaTime, event: MIDIFileEvent) {
-
+        
         switch self {
         case .cc(let delta, let event): return (delta: delta, event: event)
         case .channelPrefix(let delta, let event): return (delta: delta, event: event)
@@ -380,16 +380,16 @@ extension MIDI.File.Event {
         case .unrecognizedMeta(let delta, let event): return (delta: delta, event: event)
         case .xmfPatchTypePrefix(let delta, let event): return (delta: delta, event: event)
         }
-
+        
     }
-
+    
 }
 
 extension MIDIFileEvent {
-
+    
     /// Wraps the concrete struct in its corresponding `MIDI.File.Event` enum case wrapper.
     public func wrapped(delta: MIDI.File.DeltaTime) -> MIDI.File.Event {
-
+        
         switch self {
         case let event as MIDI.File.Event.CC: return .cc(delta: delta, event: event)
         case let event as MIDI.File.Event.ChannelPrefix: return .channelPrefix(delta: delta, event: event)
@@ -415,7 +415,7 @@ extension MIDIFileEvent {
         default:
             fatalError()
         }
-
+        
     }
-
+    
 }

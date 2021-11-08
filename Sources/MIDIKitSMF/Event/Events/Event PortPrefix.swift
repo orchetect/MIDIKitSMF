@@ -21,6 +21,14 @@ extension MIDI.File.Event {
         /// Port number (0...127)
         public var port: MIDI.UInt7 = 0
         
+        // MARK: - Init
+        
+        public init(port: MIDI.UInt7) {
+            
+            self.port = port
+            
+        }
+        
     }
     
 }

@@ -93,7 +93,7 @@ extension MIDI.File.TimeBase {
 }
 
 extension MIDI.File.TimeBase: CustomStringConvertible,
-                            CustomDebugStringConvertible {
+                              CustomDebugStringConvertible {
     
     public var description: String {
         
