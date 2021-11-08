@@ -7,9 +7,9 @@ import MIDIKit
 
 // MARK: - Format
 
-public extension MIDI.File {
+extension MIDI.File {
     
-    enum Format: UInt8, CaseIterable, Equatable {
+    public enum Format: UInt8, CaseIterable, Equatable {
         
         /// Type 0:
         /// MIDI file contains one single track containing midi data on possibly all 16 midi channels.

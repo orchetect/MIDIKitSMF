@@ -7,7 +7,7 @@ import MIDIKit
 
 // MARK: - FrameRate
 
-public extension MIDI.File {
+extension MIDI.File {
     
     /// For use in the MIDI file header when `.timecode` timing mode is selected
     ///
@@ -18,7 +18,7 @@ public extension MIDI.File {
     /// - 25fps: 0xE7
     /// - 29fps: 0xE3
     /// - 30fps: 0xE2
-    enum FrameRate: MIDI.Byte, CaseIterable, Equatable, Hashable {
+    public enum FrameRate: MIDI.Byte, CaseIterable, Equatable, Hashable {
         
         case _24fps    = 0b1101000 // 0xE8, assuming top bit of 1
         case _25fps    = 0b1100111 // 0xE7, assuming top bit of 1

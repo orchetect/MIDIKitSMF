@@ -207,9 +207,9 @@ extension MIDI.File.Event.Text: MIDIFileEvent {
 
 // MARK: - TextEventType
 
-public extension MIDI.File.Event {
+extension MIDI.File.Event {
     
-    enum TextEventType: String, CaseIterable, Equatable, Hashable {
+    public enum TextEventType: String, CaseIterable, Equatable, Hashable {
         
         // track events - first track
         

@@ -6,9 +6,9 @@
 import Foundation
 import MIDIKit
 
-public extension MIDI.File {
+extension MIDI.File {
     
-    enum Chunk: Equatable {
+    public enum Chunk: Equatable {
         
         case track(Track)
         case other(UnrecognizedChunk)
@@ -17,15 +17,15 @@ public extension MIDI.File {
     
 }
 
-public extension MIDI.File.Chunk {
+extension MIDI.File.Chunk {
     
-    static func track(_ events: [MIDI.File.Event]) -> Self {
+    public static func track(_ events: [MIDI.File.Event]) -> Self {
         
         .track(.init(events: events))
         
     }
     
-    static func other(id: ASCIIString, rawData: Data? = nil) -> Self {
+    public static func other(id: ASCIIString, rawData: Data? = nil) -> Self {
         
         .other(.init(id: id, rawData: rawData))
         
@@ -62,10 +62,10 @@ extension MIDI.File.Chunk: CustomStringConvertible,
     
 }
 
-public extension MIDI.File.Chunk {
+extension MIDI.File.Chunk {
     
     /// Unwraps the enum case and returns the `MIDI.File.Chunk` contained within, typed as `MIDI.FileChunk` protocol.
-    var unwrapped: MIDIFileChunk {
+    public var unwrapped: MIDIFileChunk {
         
         switch self {
         case let .track(chunk):
@@ -79,10 +79,10 @@ public extension MIDI.File.Chunk {
     
 }
 
-public extension MIDIFileChunk {
+extension MIDIFileChunk {
     
     /// Wraps the concrete struct in its corresponding `MIDI.File.Chunk` enum case wrapper.
-    var wrapped: MIDI.File.Chunk {
+    public var wrapped: MIDI.File.Chunk {
         
         switch self {
         case let chunk as MIDI.File.Chunk.Track:

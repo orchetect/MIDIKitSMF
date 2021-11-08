@@ -10,14 +10,14 @@ import MIDIKit
 
 // MARK: - ChannelPrefix
 
-public extension MIDI.File.Event {
+extension MIDI.File.Event {
     
     /// MIDI Channel Prefix event.
     ///
     /// - remark: Standard MIDI File Spec 1.0:
     ///
     /// "The MIDI channel (0-15) contained in this event may be used to associate a MIDI channel with all events which follow, including System Exclusive and meta-events. This channel is "effective" until the next normal MIDI event (which contains a channel) or the next MIDI Channel Prefix meta-event. If MIDI channels refer to "tracks", this message may help jam several tracks into a format 0 file, keeping their non-MIDI data associated with a track. This capability is also present in Yamaha's ESEQ file format."
-    struct ChannelPrefix: Equatable, Hashable {
+    public struct ChannelPrefix: Equatable, Hashable {
         
         /// Channel (1...16) is stored zero-based (0..15).
         public var channel: MIDI.UInt4 = 0

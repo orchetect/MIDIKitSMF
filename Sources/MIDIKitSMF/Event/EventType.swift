@@ -65,9 +65,9 @@ extension MIDI.File.Event.EventType {
     
 }
 
-public extension Collection where Element == MIDI.File.Event.EventType {
+extension Collection where Element == MIDI.File.Event.EventType {
     
-    var concreteTypes: [MIDIFileEvent.Type] {
+    public var concreteTypes: [MIDIFileEvent.Type] {
         
         map(\.concreteType.self)
         

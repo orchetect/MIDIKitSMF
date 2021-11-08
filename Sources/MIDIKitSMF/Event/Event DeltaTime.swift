@@ -100,9 +100,9 @@ extension MIDI.File.DeltaTime: CustomStringConvertible,
 
 // MARK: - ticksValue
 
-public extension MIDI.File.DeltaTime {
+extension MIDI.File.DeltaTime {
     
-    func ticksValue(using timing: MIDI.File.TimeBase) -> UInt32 {
+    public func ticksValue(using timing: MIDI.File.TimeBase) -> UInt32 {
         
         let midiFileTicksPerQuarter: UInt32
 

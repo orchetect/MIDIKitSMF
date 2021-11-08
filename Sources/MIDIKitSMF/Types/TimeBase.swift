@@ -9,10 +9,10 @@ import MIDIKit
 
 // MARK: - timing
 
-public extension MIDI.File {
+extension MIDI.File {
     
     /// MIDI file timing mode as described in the MIDI file header.
-    enum TimeBase: Equatable {
+    public enum TimeBase: Equatable {
         
         /// Musical: Delta-time ticks per quarter note (PPQN / PPQ / PPQBase).
         ///

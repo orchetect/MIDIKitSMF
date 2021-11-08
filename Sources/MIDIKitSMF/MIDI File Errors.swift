@@ -5,9 +5,9 @@
 
 import MIDIKit
 
-public extension MIDI.File {
+extension MIDI.File {
     
-    enum DecodeError: Error {
+    public enum DecodeError: Error {
         
         case fileNotFound
         case malformedURL
@@ -17,7 +17,7 @@ public extension MIDI.File {
         
     }
 
-    enum EncodeError: Error {
+    public enum EncodeError: Error {
         
         /// Internal Inconsistency. `verboseError` contains the specific reason.
         case internalInconsistency(_ verboseError: String)

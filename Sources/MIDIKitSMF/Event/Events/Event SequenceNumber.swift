@@ -10,14 +10,14 @@ import MIDIKit
 
 // MARK: - MIDIChannelPrefix
 
-public extension MIDI.File.Event {
+extension MIDI.File.Event {
     
     /// Sequence Number event.
     ///
     /// - For MIDI file type 0/1, this should only be on the first track. This is used to identify each track. If omitted, the sequences are numbered sequentially in the order the tracks appear.
     ///
     /// - For MIDI file type 2, each track can contain a sequence number event.
-    struct SequenceNumber: Equatable, Hashable {
+    public struct SequenceNumber: Equatable, Hashable {
         
         /// Sequence number (0...32767)
         public var sequence: UInt16 = 0 {
