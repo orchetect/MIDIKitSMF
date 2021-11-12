@@ -96,14 +96,14 @@ extension MIDI.Event.SysEx: MIDIFileEvent {
     public var midi1SMFRawBytes: [MIDI.Byte] {
         
         // F0 variable_length(of message including trailing F7) message
-        // The system exclusive message :
-        // F0 7E 00 09 01 F7
-        // would be encoded (without the preceding delta-time) as :
-        // F0 05 7E 00 09 01 F7
+        // The system exclusive message:
+        //   F0 7E 00 09 01 F7
+        // would be encoded as:
+        //   F0 05 7E 00 09 01 F7
         
         let msg = midi1RawBytes(leadingF0: false, trailingF7: false)
         
-        return [0xF0] + MIDI.File.encodeVariableLengthValue(msg.count) + msg + [0xF7]
+        return [0xF0] + MIDI.File.encodeVariableLengthValue(msg.count + 1) + msg + [0xF7]
         
     }
     
@@ -178,14 +178,14 @@ extension MIDI.Event.UniversalSysEx: MIDIFileEvent {
     public var midi1SMFRawBytes: [MIDI.Byte] {
         
         // F0 variable_length(of message including trailing F7) message
-        // The system exclusive message :
-        // F0 7E 00 09 01 F7
-        // would be encoded (without the preceding delta-time) as :
-        // F0 05 7E 00 09 01 F7
+        // The system exclusive message:
+        //   F0 7E 00 09 01 F7
+        // would be encoded as:
+        //   F0 05 7E 00 09 01 F7
         
         let msg = midi1RawBytes(leadingF0: false, trailingF7: false)
         
-        return [0xF0] + MIDI.File.encodeVariableLengthValue(msg.count) + msg + [0xF7]
+        return [0xF0] + MIDI.File.encodeVariableLengthValue(msg.count + 1) + msg + [0xF7]
         
     }
     

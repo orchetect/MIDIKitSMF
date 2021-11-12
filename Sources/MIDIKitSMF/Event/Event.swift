@@ -240,7 +240,7 @@ public extension MIDI.File.Event {
     }
     
     static func text(_ delta: MIDI.File.DeltaTime = .none,
-                     type: TextEventType,
+                     type: Text.EventType,
                      string: ASCIIString) -> Self
     {
         .text(delta: delta,
