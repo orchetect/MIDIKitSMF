@@ -8,7 +8,7 @@ import MIDIKit
 @_implementationOnly import OTCore
 @_implementationOnly import SwiftRadix
 
-// MARK: - MIDIChannelPrefix
+// MARK: - SequenceNumber
 
 extension MIDI.File.Event {
     
