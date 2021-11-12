@@ -7,6 +7,7 @@ import MIDIKitSMF
 
 enum kMIDIFile {
     
+    /// Example Digital Performer 8 MIDI file export containing marker and cue point events.
     static let DP8Markers: [MIDI.Byte] = [
         0x4D, 0x54, 0x68, 0x64, // MThd
         0x00, 0x00, 0x00, 0x06, // 6 header bytes

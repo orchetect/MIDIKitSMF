@@ -87,7 +87,7 @@ extension MIDI.File.Event.KeySignature: MIDIFileEvent {
         }
         
         flatsOrSharps = readFlatsOrSharps
-        majorKey = readMajorKey.boolValue
+        majorKey = !readMajorKey.boolValue
         
     }
     

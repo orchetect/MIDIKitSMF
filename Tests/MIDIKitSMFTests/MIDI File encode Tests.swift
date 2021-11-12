@@ -5,9 +5,9 @@
 
 #if !os(watchOS)
 
+import XCTest
 import MIDIKitSMF
 import SwiftRadix
-import XCTest
 
 final class MIDIFileEncodeTests: XCTestCase {
     
@@ -30,7 +30,7 @@ final class MIDIFileEncodeTests: XCTestCase {
         
     }
     
-    func testEncodeDP8Markers() {
+    func testEncodeDP8Markers() throws {
         
         var midiFile = MIDI.File()
         
@@ -65,12 +65,12 @@ final class MIDIFileEncodeTests: XCTestCase {
         
         // test if midiFile structs are equal by way of Equatable
         
-        let dp8MarkersRawData = try! MIDI.File(rawData: kMIDIFile.DP8Markers.data)
+        let dp8MarkersRawData = try MIDI.File(rawData: kMIDIFile.DP8Markers.data)
         XCTAssertEqual(midiFile, dp8MarkersRawData)
         
         // test if raw data is equal
         
-        let constructedData = try! midiFile.rawData()
+        let constructedData = try midiFile.rawData()
         XCTAssertEqual(constructedData, kMIDIFile.DP8Markers.data)
         
     }

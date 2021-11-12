@@ -30,7 +30,6 @@ extension MIDI.Event.PitchBend: MIDIFileEvent {
         
         let readStatus = (rawBytes[0] & 0xF0) >> 4
         let readChannel = rawBytes[0] & 0x0F
-        let readValue = MIDI.Byte.Pair(msb: rawBytes[2], lsb: rawBytes[1]).uInt16Value
         
         guard readStatus == 0xE else {
             throw MIDI.File.DecodeError.malformed(
@@ -38,35 +37,25 @@ extension MIDI.Event.PitchBend: MIDIFileEvent {
             )
         }
         
-        guard rawBytes[1].isContained(in: 0 ... 127) else {
+        guard let lsb = rawBytes[1].toMIDIUInt7Exactly else {
             throw MIDI.File.DecodeError.malformed(
                 "Pitch Bend LSB is out of bounds: \(rawBytes[1].hex.stringValue(padTo: 2, prefix: true))"
             )
         }
         
-        guard rawBytes[2].isContained(in: 0 ... 127) else {
+        guard let msb = rawBytes[2].toMIDIUInt7Exactly else {
             throw MIDI.File.DecodeError.malformed(
                 "Pitch Bend MSB is out of bounds: \(rawBytes[2].hex.stringValue(padTo: 2, prefix: true))"
             )
         }
         
-        let valueRange = MIDI.UInt14.min(UInt16.self) ... MIDI.UInt14.max(UInt16.self)
-        guard readValue.isContained(in: valueRange) else {
-            let valueString = readValue.hex.stringValue(padToEvery: 2, prefix: true)
-            let lsb = rawBytes[1].hex.stringValue(padTo: 2, prefix: true)
-            let msb = rawBytes[2].hex.stringValue(padTo: 2, prefix: true)
-            
+        let value = MIDI.UInt7.Pair(msb: msb, lsb: lsb).uInt14Value
+        
+        guard let channel = readChannel.toMIDIUInt4Exactly else {
             throw MIDI.File.DecodeError.malformed(
-                "Pitch Bend value is out of bounds: UInt:\(readValue) (\(valueString) from LSB:\(lsb) MSB:\(msb)"
+                "Value(s) out of bounds."
             )
         }
-        
-        guard let channel = readChannel.toMIDIUInt4Exactly,
-              let value = readValue.toMIDIUInt14Exactly else {
-                  throw MIDI.File.DecodeError.malformed(
-                    "Value(s) out of bounds."
-                  )
-              }
         
         let newEvent = MIDI.Event.pitchBend(value: .midi1(value),
                                             channel: channel)
