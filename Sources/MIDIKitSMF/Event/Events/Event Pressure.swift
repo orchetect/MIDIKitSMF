@@ -1,5 +1,5 @@
 //
-//  Event ChannelPressure.swift
+//  Event Pressure.swift
 //  MIDIKitSMF • https://github.com/orchetect/MIDIKitSMF
 //
 

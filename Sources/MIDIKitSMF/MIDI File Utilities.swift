@@ -64,7 +64,7 @@ extension MIDI.File {
 
     /// Returns the decoded value and the number of bytes read from the bytes array if successful.
     /// Returns nil if bytes is empty or variable length value could not be read in the expected format (ie: malformed or unexpected data)
-    /// Currently returns nil if value overflows a 32-bit unsigned value.
+    /// Currently returns nil if value overflows a 28-bit unsigned value.
     static func decodeVariableLengthValue(from bytes: [MIDI.Byte]) -> (value: Int,
                                                                        byteLength: Int)? {
         
@@ -76,9 +76,11 @@ extension MIDI.File {
 
     /// Returns the decoded value and the number of bytes read from the bytes array if successful.
     /// Returns nil if bytes is empty or variable length value could not be read in the expected format (ie: malformed or unexpected data)
-    /// Currently returns nil if value overflows a 32-bit unsigned value.
+    /// Currently returns nil if value overflows a 28-bit unsigned value.
     static func decodeVariableLengthValue(from bytes: inout [MIDI.Byte]) -> (value: Int,
                                                                              byteLength: Int)? {
+        
+        let uInt28Max = 0b1111111_1111111_1111111_1111111
         
         var result: Int = 0 // don't cast as UInt32 yet, we need room to check for overflow
 
@@ -87,24 +89,30 @@ extension MIDI.File {
         if bytes.count < 1 { return nil }
 
         // while flag bit is set
-        while bytes[count] & 0x80 > 0,
-              count < bytes.count
+        while count < bytes.count,
+              bytes[count] & 0x80 > 0,
+              count <= 4
         {
             result = result << 7
             result = result | (Int(bytes[count]) & 0x7F)
 
-            // validation check: if we overflow UInt32, return nil - input data may be malformed
-            if result > UInt32.max { return nil }
+            // validation check: if we overflow, return nil - input data may be malformed
+            if result > uInt28Max { return nil }
 
             count += 1
         }
-
+        
+        guard count < bytes.count else {
+            // malformed
+            return nil
+        }
+        
         // get last byte (the one without the flag bit set)
         result = result << 7
         result = result | (Int(bytes[count]) & 0x7F)
-
-        // validation check: if we overflow UInt32, return nil - input data may be malformed
-        if result > UInt32.max { return nil }
+        
+        // validation check: if we overflow, return nil - input data may be malformed
+        if result > uInt28Max { return nil }
 
         return (value: Int(result), byteLength: count + 1)
         
@@ -116,7 +124,7 @@ extension Data {
     
     mutating func append(deltaTime ticks: UInt32) {
         
-        // Variable length (7-bit function) delta timestamp representing the number of ticks that have elapsed
+        // Variable length delta timestamp representing the number of ticks that have elapsed
         // According to the Standard MIDI File Spec 1.0, the entire delta-time should be at most 4 bytes long.
 
         append(contentsOf: MIDI.File.encodeVariableLengthValue(ticks))
