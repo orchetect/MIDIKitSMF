@@ -54,8 +54,6 @@ final class Event_PitchBend_Tests: XCTestCase {
         
     }
     
-    // MARK: - Edge Cases
-    
 }
 
 #endif

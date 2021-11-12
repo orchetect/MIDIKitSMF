@@ -37,23 +37,19 @@ extension MIDI.Event.PitchBend: MIDIFileEvent {
             )
         }
         
-        guard rawBytes[1].isContained(in: 0 ... 127) else {
+        guard let lsb = rawBytes[1].toMIDIUInt7Exactly else {
             throw MIDI.File.DecodeError.malformed(
                 "Pitch Bend LSB is out of bounds: \(rawBytes[1].hex.stringValue(padTo: 2, prefix: true))"
             )
         }
         
-        guard rawBytes[2].isContained(in: 0 ... 127) else {
+        guard let msb = rawBytes[2].toMIDIUInt7Exactly else {
             throw MIDI.File.DecodeError.malformed(
                 "Pitch Bend MSB is out of bounds: \(rawBytes[2].hex.stringValue(padTo: 2, prefix: true))"
             )
         }
         
-        let value = MIDI.UInt7.Pair(
-            msb: rawBytes[2].toMIDIUInt7Exactly ?? 0x7F,
-            lsb: rawBytes[1].toMIDIUInt7Exactly ?? 0x7F
-        )
-        .uInt14Value
+        let value = MIDI.UInt7.Pair(msb: msb, lsb: lsb).uInt14Value
         
         guard let channel = readChannel.toMIDIUInt4Exactly else {
             throw MIDI.File.DecodeError.malformed(
