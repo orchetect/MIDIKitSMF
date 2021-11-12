@@ -30,12 +30,12 @@ final class Event_SMPTEOffset_Tests: XCTestCase {
         
     }
     
-    func testInit_midi1SMFRawBytes() {
+    func testInit_midi1SMFRawBytes() throws {
         
         let rawData: [MIDI.Byte] = [0xFF, 0x54, 0x05,
                                     0b0010_0001, 2, 3, 4, 5]
         
-        let event = try! MIDI.File.Event.SMPTEOffset(midi1SMFRawBytes: rawData)
+        let event = try MIDI.File.Event.SMPTEOffset(midi1SMFRawBytes: rawData)
         
         XCTAssertEqual(event.hours, 1)
         XCTAssertEqual(event.minutes, 2)
@@ -46,13 +46,13 @@ final class Event_SMPTEOffset_Tests: XCTestCase {
         
     }
     
-    func testFrameRates() {
+    func testFrameRates() throws {
         
         do {
             let rawData: [MIDI.Byte] = [0xFF, 0x54, 0x05,
                                         0b0000_0001, 2, 3, 4, 5]
             
-            let event = try! MIDI.File.Event.SMPTEOffset(midi1SMFRawBytes: rawData)
+            let event = try MIDI.File.Event.SMPTEOffset(midi1SMFRawBytes: rawData)
             
             XCTAssertEqual(event.frameRate, ._24fps)
         }
@@ -61,7 +61,7 @@ final class Event_SMPTEOffset_Tests: XCTestCase {
             let rawData: [MIDI.Byte] = [0xFF, 0x54, 0x05,
                                         0b0010_0001, 2, 3, 4, 5]
             
-            let event = try! MIDI.File.Event.SMPTEOffset(midi1SMFRawBytes: rawData)
+            let event = try MIDI.File.Event.SMPTEOffset(midi1SMFRawBytes: rawData)
             
             XCTAssertEqual(event.frameRate, ._25fps)
         }
@@ -70,7 +70,7 @@ final class Event_SMPTEOffset_Tests: XCTestCase {
             let rawData: [MIDI.Byte] = [0xFF, 0x54, 0x05,
                                         0b0100_0001, 2, 3, 4, 5]
             
-            let event = try! MIDI.File.Event.SMPTEOffset(midi1SMFRawBytes: rawData)
+            let event = try MIDI.File.Event.SMPTEOffset(midi1SMFRawBytes: rawData)
             
             XCTAssertEqual(event.frameRate, ._2997dfps)
         }
@@ -79,7 +79,7 @@ final class Event_SMPTEOffset_Tests: XCTestCase {
             let rawData: [MIDI.Byte] = [0xFF, 0x54, 0x05,
                                         0b0110_0001, 2, 3, 4, 5]
             
-            let event = try! MIDI.File.Event.SMPTEOffset(midi1SMFRawBytes: rawData)
+            let event = try MIDI.File.Event.SMPTEOffset(midi1SMFRawBytes: rawData)
             
             XCTAssertEqual(event.frameRate, ._30fps)
         }
