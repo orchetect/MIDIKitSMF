@@ -5,8 +5,8 @@
 
 #if !os(watchOS)
 
-@testable import MIDIKitSMF
 import XCTest
+@testable import MIDIKitSMF
 
 final class MIDIKitSMFTests: XCTestCase {
     

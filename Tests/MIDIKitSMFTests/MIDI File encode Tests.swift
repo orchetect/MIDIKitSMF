@@ -5,9 +5,9 @@
 
 #if !os(watchOS)
 
+import XCTest
 import MIDIKitSMF
 import SwiftRadix
-import XCTest
 
 final class MIDIFileEncodeTests: XCTestCase {
     

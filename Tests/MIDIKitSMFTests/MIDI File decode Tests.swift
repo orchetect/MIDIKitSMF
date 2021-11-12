@@ -5,9 +5,9 @@
 
 #if !os(watchOS)
 
+import XCTest
 @testable import MIDIKitSMF
 import OTCore
-import XCTest
 
 final class MIDIFileDecodeTests: XCTestCase {
     

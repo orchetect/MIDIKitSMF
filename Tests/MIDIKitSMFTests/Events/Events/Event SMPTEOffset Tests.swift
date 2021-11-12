@@ -5,16 +5,19 @@
 
 #if !os(watchOS)
 
+import XCTest
 @testable import MIDIKitSMF
 import OTCore
 import TimecodeKit
-import XCTest
 
 final class Event_SMPTEOffset_Tests: XCTestCase {
     
-    func testInit() {
+    func testInit_midi1SMFRawBytes() throws {
         
-        let event = MIDI.File.Event.SMPTEOffset(hr: 1, min: 2, sec: 3, fr: 4, subFr: 5, frRate: ._25fps)
+        let bytes: [MIDI.Byte] = [0xFF, 0x54, 0x05,
+                                  0b0010_0001, 2, 3, 4, 5]
+        
+        let event = try MIDI.File.Event.SMPTEOffset(midi1SMFRawBytes: bytes)
         
         XCTAssertEqual(event.hours, 1)
         XCTAssertEqual(event.minutes, 2)
@@ -22,27 +25,22 @@ final class Event_SMPTEOffset_Tests: XCTestCase {
         XCTAssertEqual(event.frames, 4)
         XCTAssertEqual(event.subframes, 5)
         XCTAssertEqual(event.frameRate, ._25fps)
-        
-        let rawData: [MIDI.Byte] = [0xFF, 0x54, 0x05,
-                                    0b0010_0001, 2, 3, 4, 5]
-        
-        XCTAssertEqual(event.midi1SMFRawBytes, rawData)
         
     }
     
-    func testInit_midi1SMFRawBytes() throws {
+    func testMIDI1SMFRawBytes() {
         
-        let rawData: [MIDI.Byte] = [0xFF, 0x54, 0x05,
-                                    0b0010_0001, 2, 3, 4, 5]
+        let event = MIDI.File.Event.SMPTEOffset(hr: 1,
+                                                min: 2,
+                                                sec: 3,
+                                                fr: 4,
+                                                subFr: 5,
+                                                frRate: ._25fps)
         
-        let event = try MIDI.File.Event.SMPTEOffset(midi1SMFRawBytes: rawData)
+        let bytes = event.midi1SMFRawBytes
         
-        XCTAssertEqual(event.hours, 1)
-        XCTAssertEqual(event.minutes, 2)
-        XCTAssertEqual(event.seconds, 3)
-        XCTAssertEqual(event.frames, 4)
-        XCTAssertEqual(event.subframes, 5)
-        XCTAssertEqual(event.frameRate, ._25fps)
+        XCTAssertEqual(bytes, [0xFF, 0x54, 0x05,
+                               0b0010_0001, 2, 3, 4, 5])
         
     }
     
