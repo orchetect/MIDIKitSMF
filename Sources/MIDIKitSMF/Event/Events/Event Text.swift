@@ -16,7 +16,7 @@ extension MIDI.File.Event {
     public struct Text: Equatable, Hashable {
         
         /// Type of text event.
-        public var textType: TextEventType = .text
+        public var textType: EventType = .text
         
         /// Text content.
         ///
@@ -39,7 +39,7 @@ extension MIDI.File.Event {
 
         public init() { }
 
-        public init(type: TextEventType,
+        public init(type: EventType,
                     string: ASCIIString) {
             
             textType = type
@@ -209,9 +209,9 @@ extension MIDI.File.Event.Text: MIDIFileEvent {
 
 // MARK: - TextEventType
 
-extension MIDI.File.Event {
+extension MIDI.File.Event.Text {
     
-    public enum TextEventType: String, CaseIterable, Equatable, Hashable {
+    public enum EventType: String, CaseIterable, Equatable, Hashable {
         
         // track events - first track
         

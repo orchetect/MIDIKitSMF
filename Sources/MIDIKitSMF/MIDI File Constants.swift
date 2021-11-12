@@ -24,7 +24,7 @@ extension MIDI.File {
             .sequencerSpecific:  [0xFF, 0x7F],
         ]
 
-    static let kTextEventHeaders: [MIDI.File.Event.TextEventType: [MIDI.Byte]] =
+    static let kTextEventHeaders: [MIDI.File.Event.Text.EventType: [MIDI.Byte]] =
         [
             .text:                [0xFF, 0x01],
             .copyright:           [0xFF, 0x02],

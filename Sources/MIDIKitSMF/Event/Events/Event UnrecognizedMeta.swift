@@ -76,9 +76,9 @@ extension MIDI.File.Event.UnrecognizedMeta: MIDIFileEvent {
             )
         }
         
-        let beginIndex = rawBytes.startIndex.advanced(by: 2)
+        let beginIndex = rawBytes.startIndex.advanced(by: 2 + length.byteLength)
         let stopIndex = beginIndex.advanced(by: length.value)
-        let readData = Array(rawBytes[beginIndex ... stopIndex])
+        let readData = Array(rawBytes[beginIndex ..< stopIndex])
         
         metaType = readMetaType
         data = readData
