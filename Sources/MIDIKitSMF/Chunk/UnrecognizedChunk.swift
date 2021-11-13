@@ -12,6 +12,11 @@ extension MIDI.File.Chunk {
     
     public struct UnrecognizedChunk: MIDIFileChunk, Equatable {
         
+        static let disallowedIdentifiers: [ASCIIString] = [
+            Header().identifier,
+            Track().identifier
+        ]
+        
         public let identifier: ASCIIString
 
         /// Contains the raw bytes of the chunk's data portion
@@ -21,12 +26,9 @@ extension MIDI.File.Chunk {
         public init(id: ASCIIString, rawData: Data? = nil) {
             // identifier validation
 
-            if id == Track().identifier ||
-                id == Header().identifier
-            {
+            if Self.disallowedIdentifiers.contains(id) {
                 // don't allow non-track chunks to use SMF header or track identifier
                 identifier = "----"
-
             } else if id.stringValue.count < 4 {
                 identifier =
                     id.stringValue
@@ -48,6 +50,78 @@ extension MIDI.File.Chunk {
 
             self.rawData = rawData ?? Data()
         }
+        
+    }
+    
+}
+
+extension MIDI.File.Chunk.UnrecognizedChunk {
+    
+    /// Init from MIDI file buffer.
+    public init(midi1SMFRawBytesStream rawBuffer: [MIDI.Byte]) throws {
+        
+        guard rawBuffer.count >= 8 else {
+            throw MIDI.File.DecodeError.malformed(
+                "There was a problem reading chunk header. Encountered end of file early."
+            )
+        }
+        
+        // track header
+        
+        let readChunkType = rawBuffer[0 ... 3].data
+        
+        guard let chunkLength = rawBuffer[4 ... 7].data.toUInt32(from: .bigEndian)?.int else {
+            throw MIDI.File.DecodeError.malformed(
+                "There was a problem reading chunk length."
+            )
+        }
+        
+        let chunkTypeString = ASCIIString(exactly: readChunkType) ?? "????"
+        
+        guard !Self.disallowedIdentifiers.contains(chunkTypeString) else {
+            throw MIDI.File.DecodeError.malformed(
+                "Chunk type matches known identifier  \(chunkTypeString.stringValue.quoted). Forming an unrecognized chunk using this identifier is not allowed."
+            )
+        }
+        
+        guard rawBuffer.count >= 8 + chunkLength else {
+            throw MIDI.File.DecodeError.malformed(
+                "There was a problem reading chunk data blob. Encountered end of data early."
+            )
+        }
+        
+        self.init(id: chunkTypeString,
+                  rawData: Data(rawBuffer[8 ..< (8 + chunkLength)]))
+        
+    }
+    
+    func midi1SMFRawBytes(using timeBase: MIDI.File.TimeBase) throws -> Data {
+        
+        // assemble track body without header or length
+        
+        let bodyData = rawData
+        
+        // assemble full chunk data with header and length
+        
+        var data = Data()
+        
+        // 4-byte chunk identifier
+        data += identifier.rawData
+        
+        // chunk data length (32-bit 4 byte big endian integer)
+        if let trackLength = UInt32(exactly: bodyData.count) {
+            data += trackLength.toData(.bigEndian)
+        } else {
+            // track length overflows max length integer size
+            // maximum track data size is 4.294967296 GB (UInt32.max bytes)
+            throw MIDI.File.EncodeError.internalInconsistency(
+                "Chunk length overflowed maximum size."
+            )
+        }
+        
+        data += bodyData
+        
+        return data
         
     }
     

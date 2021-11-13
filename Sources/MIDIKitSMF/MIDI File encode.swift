@@ -24,40 +24,18 @@ extension MIDI.File {
 
         // ____ Header ____
 
-        try data += header.midi1SMFRawBytes(withChunkCount: chunks.count)
+        data += try header.midi1SMFRawBytes(withChunkCount: chunks.count)
 
         // ____ Chunks ____
 
         for chunk in chunks {
-            var chunkData = Data()
-            var chunkIdentifier: ASCIIString
-
             switch chunk {
             case let .track(track):
-                chunkIdentifier = track.identifier
-                chunkData += track.midi1SMFRawBytes(using: timeBase)
+                data += try track.midi1SMFRawBytes(using: timeBase)
 
             case let .other(unrecognizedChunk):
-                chunkIdentifier = unrecognizedChunk.identifier
-                chunkData += unrecognizedChunk.rawData
+                data += try unrecognizedChunk.midi1SMFRawBytes(using: timeBase)
             }
-
-            // 4-byte chunk identifier
-            data += chunkIdentifier.rawData
-
-            // Chunk data length (32-bit 4 byte big endian integer)
-            if let trackLength = UInt32(exactly: chunkData.count) {
-                data += trackLength.toData(.bigEndian)
-            } else {
-                // track length overflows max length integer size
-                // maximum track data size is 4.294967296 GB (UInt32.max bytes)
-                throw EncodeError.internalInconsistency(
-                    "Chunk length overflowed maximum size."
-                )
-            }
-
-            // Track events
-            data += chunkData
         }
 
         return data
