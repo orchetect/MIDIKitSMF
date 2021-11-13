@@ -86,11 +86,11 @@ extension MIDI.File.Chunk.Header: MIDIFileChunk {
 
 extension MIDI.File.Chunk.Header {
     
-    static let staticRawBytesLength = 14
+    static let midi1SMFFixedRawBytesLength = 14
     
     init(midi1SMFRawBytes: Data) throws {
         
-        guard midi1SMFRawBytes.count >= Self.staticRawBytesLength else {
+        guard midi1SMFRawBytes.count >= Self.midi1SMFFixedRawBytesLength else {
             throw MIDI.File.DecodeError.malformed(
                 "Header is not correct. File may not be a MIDI file."
             )
@@ -123,8 +123,7 @@ extension MIDI.File.Chunk.Header {
         
         // MIDI Format Type specification - 0, 1, or 2 (2 bytes: big endian)
         
-        guard let midiFileFormatRawValue = dataReader.read(bytes: 2)?
-                .toUInt16(from: .bigEndian),
+        guard let midiFileFormatRawValue = dataReader.read(bytes: 2)?.toUInt16(from: .bigEndian),
               (0 ... 2).contains(midiFileFormatRawValue),
               let midiFileFormat = MIDI.File.Format(rawValue: midiFileFormatRawValue.uint8Exactly ?? 255)
         else {
@@ -135,9 +134,7 @@ extension MIDI.File.Chunk.Header {
         
         format = midiFileFormat
         
-        guard let numberOfTracks = dataReader.read(bytes: 2)?
-                .toUInt16(from: .bigEndian)
-        else {
+        guard let numberOfTracks = dataReader.read(bytes: 2)?.toUInt16(from: .bigEndian) else {
             throw MIDI.File.DecodeError.malformed(
                 "Could not read number of tracks; end of file encountered."
             )
@@ -157,12 +154,13 @@ extension MIDI.File.Chunk.Header {
         
         self.timeBase = timeBase
         
-        // technically Format 0 can only have one track, so header should always state a track count of 1
+        // technically Format 0 can only have one track,
+        // so header must always state a track count of 1 in that event
         if midiFileFormat == .singleTrack,
            numberOfTracks != 1
         {
-            Log.debug(
-                "MIDI file is Format 0 but header specifies a track count other than 1. Track count read: \(numberOfTracks)."
+            throw MIDI.File.DecodeError.malformed(
+                "MIDI file is Format 0 which can only contain a single track, but header reports a track count of \(numberOfTracks)."
             )
         }
         
@@ -174,12 +172,12 @@ extension MIDI.File.Chunk.Header {
     
     func midi1SMFRawBytes(withChunkCount: Int) throws -> Data {
         
-        // The header chunk appears at the beginning of the file, and describes the file in three ways.
-        // The header chunk always looks like:
-        // 4D 54 68 64 00 00 00 06 ff ff nn nn dd dd
-        // The ASCII equivalent of the first 4 bytes is "MThd".
-        // After MThd comes the 4-byte size of the header.
-        // This will always be 00 00 00 06, because the actual header information will always be 6 bytes.
+        // The header chunk appears at the beginning of the file:
+        //   4D 54 68 64    ASCII "MThd".
+        //   00 00 00 06    4-byte size of the header; this will always be 6
+        //   ff ff          format (Int16 big-endian)
+        //   nn nn          track count (Int16 big-endian)
+        //   dd dd          timebase / time division (Int16 big-endian)
         
         var data = Data()
         
@@ -195,14 +193,9 @@ extension MIDI.File.Chunk.Header {
         
         // Track count as 16-bit number (2 bytes: big endian)
         if format == .singleTrack {
-            if withChunkCount < 1 {
+            guard withChunkCount == 1 else {
                 throw MIDI.File.EncodeError.internalInconsistency(
-                    "MIDI File is type 0 (single track) but track count was less than 1."
-                )
-            }
-            if withChunkCount > 1 {
-                throw MIDI.File.EncodeError.internalInconsistency(
-                    "MIDI File is type 0 (single track) but more than 1 track was found."
+                    "MIDI file is Format 0 which can only contain a single track, but header reports a track count of \(withChunkCount)."
                 )
             }
             

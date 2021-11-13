@@ -76,7 +76,7 @@ extension MIDI.File.Chunk.Track {
             )
         }
         
-        try self.init(midi1SMFRawBytes: Array(rawBuffer[8 ... (8 + chunkLength)]))
+        try self.init(midi1SMFRawBytes: Array(rawBuffer[8 ..< (8 + chunkLength)]))
         
     }
     
@@ -213,19 +213,40 @@ extension MIDI.File.Chunk.Track {
 
 extension MIDI.File.Chunk.Track {
     
-    /// Raw data block, excluding the header identifier and length
-    func midi1SMFRawBytes(using timeBase: MIDI.File.TimeBase) -> Data {
+    func midi1SMFRawBytes(using timeBase: MIDI.File.TimeBase) throws -> Data {
         
-        var data = Data()
+        // assemble chunk body without header or length
+        
+        var bodyData = Data()
         
         for event in events {
             let unwrapped = event.smfUnwrappedEvent
-            data.append(deltaTime: unwrapped.delta.ticksValue(using: timeBase))
-            data += unwrapped.event.midi1SMFRawBytes
+            bodyData.append(deltaTime: unwrapped.delta.ticksValue(using: timeBase))
+            bodyData += unwrapped.event.midi1SMFRawBytes
         }
         
-        data.append(deltaTime: 0)
-        data += Self.chunkEnd
+        bodyData.append(deltaTime: 0)
+        bodyData += Self.chunkEnd
+        
+        // assemble full chunk data with header and length
+        
+        var data = Data()
+        
+        // 4-byte chunk identifier
+        data += identifier.rawData
+        
+        // chunk data length (32-bit 4 byte big endian integer)
+        if let trackLength = UInt32(exactly: bodyData.count) {
+            data += trackLength.toData(.bigEndian)
+        } else {
+            // track length overflows max length integer size
+            // maximum track data size is 4.294967296 GB (UInt32.max bytes)
+            throw MIDI.File.EncodeError.internalInconsistency(
+                "Chunk length overflowed maximum size."
+            )
+        }
+        
+        data += bodyData
         
         return data
         

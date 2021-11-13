@@ -32,7 +32,7 @@ extension MIDI.File {
 
         // ____ Header ____
 
-        guard let readHeader = dataReader.read(bytes: Chunk.Header.staticRawBytesLength) else {
+        guard let readHeader = dataReader.read(bytes: Chunk.Header.midi1SMFFixedRawBytesLength) else {
             throw MIDI.File.DecodeError.malformed(
                 "Header is not correct. File may not be a MIDI file."
             )
@@ -48,6 +48,7 @@ extension MIDI.File {
         var newChunks: [Chunk] = []
 
         while !endOfFile {
+            
             // chunk header
 
             guard let chunkType = dataReader.read(bytes: 4) else {
@@ -66,57 +67,53 @@ extension MIDI.File {
             }
 
             let chunkTypeString = ASCIIString(exactly: chunkType) ?? "????"
-
-            switch chunkTypeString {
-            case MIDI.File.Chunk.Track.staticIdentifier:
-
-                tracksEncountered += 1
-
-                // chunk length
-
-                guard let trackData = dataReader.read(bytes: chunkLength) else {
-                    throw DecodeError.malformed(
-                        "There was a problem reading track data blob for track \(tracksEncountered). Encountered end of file early."
-                    )
-                }
-
-                let newTrack: Chunk.Track
-
-                do {
-                    newTrack = try Chunk.Track(midi1SMFRawBytes: trackData.bytes)
-                } catch let error as DecodeError {
-                    // append some context for the error and rethrow it
-
-                    switch error {
-                    case .malformed(let verboseError):
-                        throw DecodeError.malformed(
-                            "There was a problem reading track data for track \(tracksEncountered). " + verboseError
-                        )
-
-                    default:
-                        throw error
-                    }
-                }
-
-                newChunks += .track(newTrack)
-
-            default:
-                // as per Standard MIDI File Spec 1.0,
-                // unrecognized chunks should be skipped and not throw an error
-
-                Log.debug("Encountered unrecognized MIDI file chunk identifier: \(chunkTypeString)")
-
-                let readRawData = dataReader.read(bytes: chunkLength)
-
-                let newUnrecognizedChunk = Chunk.UnrecognizedChunk(id: chunkTypeString,
-                                                                   rawData: readRawData)
-
-                newChunks += .other(newUnrecognizedChunk)
+            
+            let newChunk: Chunk
+            
+            // chunk length
+            
+            guard let chunkData = dataReader.read(bytes: chunkLength) else {
+                throw DecodeError.malformed(
+                    "There was a problem reading track data blob for track \(tracksEncountered). Encountered end of file early."
+                )
             }
+            
+            do {
+                switch chunkTypeString {
+                case MIDI.File.Chunk.Track.staticIdentifier:
+                    tracksEncountered += 1
+                    
+                    let newTrack = try Chunk.Track(midi1SMFRawBytes: chunkData.bytes)
+                    newChunk = .track(newTrack)
+                    
+                default:
+                    // as per Standard MIDI File Spec 1.0,
+                    // unrecognized chunks should be skipped and not throw an error
+                    Log.debug("Encountered unrecognized MIDI file chunk identifier: \(chunkTypeString)")
+                    
+                    let newUnrecognizedChunk = try Chunk.UnrecognizedChunk(midi1SMFRawBytesStream: chunkData.bytes)
+                    newChunk = .other(newUnrecognizedChunk)
+                    
+                }
+            } catch let error as DecodeError {
+                // append some context for the error and rethrow it
+                switch error {
+                case .malformed(let verboseError):
+                    throw DecodeError.malformed(
+                        "There was a problem reading track data for track \(tracksEncountered). " + verboseError
+                    )
+                    
+                default:
+                    throw error
+                }
+            }
+            
+            newChunks += newChunk
 
             if dataReader.readPosition >= dataReader.base.count {
                 endOfFile = true
             }
+            
         }
 
         chunks = newChunks
