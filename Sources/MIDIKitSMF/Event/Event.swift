@@ -271,16 +271,14 @@ public extension MIDI.File.Event {
                                deviceID: MIDI.UInt7,
                                subID1: MIDI.UInt7,
                                subID2: MIDI.UInt7,
-                               data: [MIDI.Byte],
-                               group: MIDI.UInt4 = 0x0) -> Self
+                               data: [MIDI.Byte]) -> Self
     {
         .universalSysEx(delta: delta,
                         event: .init(universalType: universalType,
                                      deviceID: deviceID,
                                      subID1: subID1,
                                      subID2: subID2,
-                                     data: data,
-                                     group: group))
+                                     data: data))
     }
     
     static func xmfPatchTypePrefix(_ delta: MIDI.File.DeltaTime = .none,
