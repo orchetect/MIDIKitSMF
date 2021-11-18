@@ -34,7 +34,7 @@ extension MIDI.File.Event {
     
 }
 
-extension MIDI.File.Event.ChannelPrefix: MIDIFileEvent {
+extension MIDI.File.Event.ChannelPrefix: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .channelPrefix 
     

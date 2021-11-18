@@ -161,7 +161,7 @@ extension MIDI.File.Event {
     
 }
 
-extension MIDI.File.Event.SMPTEOffset: MIDIFileEvent {
+extension MIDI.File.Event.SMPTEOffset: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .smpteOffset
     

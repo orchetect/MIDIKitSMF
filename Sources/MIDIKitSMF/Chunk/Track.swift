@@ -95,7 +95,7 @@ extension MIDI.File.Chunk.Track {
         
         // running status
         
-        var runningStatus: MIDIFileEvent?
+        var runningStatus: MIDIFileEventPayload?
         
         while !endOfChunk {
             eventsCounted += 1
@@ -152,7 +152,7 @@ extension MIDI.File.Chunk.Track {
             
             // iterate through all known event initializers
             
-            var foundEvent: (newEvent: MIDIFileEvent, bufferLength: Int)?
+            var foundEvent: (newEvent: MIDIFileEventPayload, bufferLength: Int)?
             
             for eventDef in MIDI.File.Chunk.Track.eventDecodeOrder.concreteTypes {
                 if let success = try? eventDef.initFrom(midi1SMFRawBytesStream: readBuffer) {

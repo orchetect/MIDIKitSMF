@@ -16,7 +16,7 @@ extension MIDI.File.Event {
     
 }
 
-extension MIDI.Event.Note.Pressure: MIDIFileEvent {
+extension MIDI.Event.Note.Pressure: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .notePressure
     

@@ -16,7 +16,7 @@ extension MIDI.File.Event {
     
 }
 
-extension MIDI.Event.PitchBend: MIDIFileEvent {
+extension MIDI.Event.PitchBend: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .pitchBend
     

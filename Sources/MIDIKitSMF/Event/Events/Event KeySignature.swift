@@ -50,7 +50,7 @@ extension MIDI.File.Event {
     
 }
 
-extension MIDI.File.Event.KeySignature: MIDIFileEvent {
+extension MIDI.File.Event.KeySignature: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .keySignature
     

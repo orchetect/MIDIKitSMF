@@ -1,13 +1,13 @@
 //
-//  MIDIFileEvent.swift
+//  MIDIFileEventPayload.swift
 //  MIDIKitSMF • https://github.com/orchetect/MIDIKitSMF
 //
 
 import Foundation
 import MIDIKit
 
-/// Protocol describing a MIDI event for use in `MIDI.File`
-public protocol MIDIFileEvent {
+/// Protocol describing a MIDI event payload for use in `MIDI.File.Event` cases.
+public protocol MIDIFileEventPayload {
     
     /// MIDI File event type.
     static var smfEventType: MIDI.File.Event.EventType { get }
@@ -33,7 +33,7 @@ public protocol MIDIFileEvent {
     
 }
 
-extension MIDIFileEvent /* : CustomStringConvertible, CustomDebugStringConvertible */ {
+extension MIDIFileEventPayload /* : CustomStringConvertible, CustomDebugStringConvertible */ {
     
     public var description: String { smfDescription }
     

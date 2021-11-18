@@ -91,7 +91,7 @@ extension MIDI.File.Event {
     
 }
 
-extension MIDI.File.Event.Text: MIDIFileEvent {
+extension MIDI.File.Event.Text: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .text
     

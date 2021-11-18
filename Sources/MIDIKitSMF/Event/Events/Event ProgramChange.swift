@@ -16,7 +16,7 @@ extension MIDI.File.Event {
     
 }
 
-extension MIDI.Event.ProgramChange: MIDIFileEvent {
+extension MIDI.Event.ProgramChange: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .programChange
     

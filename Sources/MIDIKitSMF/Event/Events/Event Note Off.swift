@@ -16,7 +16,7 @@ extension MIDI.File.Event {
     
 }
 
-extension MIDI.Event.Note.Off: MIDIFileEvent {
+extension MIDI.Event.Note.Off: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .noteOff
     

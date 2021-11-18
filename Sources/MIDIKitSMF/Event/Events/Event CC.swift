@@ -16,7 +16,7 @@ extension MIDI.File.Event {
     
 }
 
-extension MIDI.Event.CC: MIDIFileEvent {
+extension MIDI.Event.CC: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .cc
     
