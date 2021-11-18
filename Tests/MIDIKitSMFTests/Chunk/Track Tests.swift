@@ -45,8 +45,8 @@ final class Chunk_Track_Tests: XCTestCase {
     func testWithEvents() throws {
         
         let events: [MIDI.File.Event] = [
-            .noteOn(.none, note: 60, velocity: .midi1(64), channel: 0),
-            .cc(.ticks(240), controller: .expression, value: .midi1(20), channel: 1)
+            .noteOn(delta: .none, note: 60, velocity: .midi1(64), channel: 0),
+            .cc(delta: .ticks(240), controller: .expression, value: .midi1(20), channel: 1)
         ]
         
         let track = MIDI.File.Chunk.Track(events: events)

@@ -437,7 +437,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_CC_event() throws {
         
-        let smfEvent = MIDI.File.Event.cc(.none,
+        let smfEvent = MIDI.File.Event.cc(delta: .none,
                                           controller: .modWheel,
                                           value: .midi1(64),
                                           channel: 1)
@@ -463,7 +463,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_NoteOff_event() throws {
         
-        let smfEvent = MIDI.File.Event.noteOff(.none,
+        let smfEvent = MIDI.File.Event.noteOff(delta: .none,
                                                note: 60,
                                                velocity: .midi1(0),
                                                channel: 1)
@@ -489,7 +489,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_NoteOn_event() throws {
         
-        let smfEvent = MIDI.File.Event.noteOn(.none,
+        let smfEvent = MIDI.File.Event.noteOn(delta: .none,
                                               note: 60,
                                               velocity: .midi1(64),
                                               channel: 1)
@@ -515,7 +515,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_NotePressure_event() throws {
         
-        let smfEvent = MIDI.File.Event.notePressure(.none,
+        let smfEvent = MIDI.File.Event.notePressure(delta: .none,
                                                     note: 60,
                                                     amount: .midi1(64),
                                                     channel: 1)
@@ -541,7 +541,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_PitchBend_event() throws {
         
-        let smfEvent = MIDI.File.Event.pitchBend(.none,
+        let smfEvent = MIDI.File.Event.pitchBend(delta: .none,
                                                  value: .midi1(.midpoint),
                                                  channel: 1)
         
@@ -566,7 +566,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_Pressure_event() throws {
         
-        let smfEvent = MIDI.File.Event.pressure(.none,
+        let smfEvent = MIDI.File.Event.pressure(delta: .none,
                                                 amount: .midi1(.midpoint),
                                                 channel: 1)
         
@@ -591,7 +591,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_ProgramChange_event() throws {
         
-        let smfEvent = MIDI.File.Event.programChange(.none,
+        let smfEvent = MIDI.File.Event.programChange(delta: .none,
                                                      program: 20,
                                                      channel: 1)
         
@@ -616,7 +616,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_SysEx_event() throws {
         
-        let smfEvent = MIDI.File.Event.sysEx(.none,
+        let smfEvent = MIDI.File.Event.sysEx(delta: .none,
                                              manufacturer: .educational(),
                                              data: [0x12, 0x34])
         
@@ -641,7 +641,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_UniversalSysEx_event() throws {
         
-        let smfEvent = MIDI.File.Event.universalSysEx(.none,
+        let smfEvent = MIDI.File.Event.universalSysEx(delta: .none,
                                                       universalType: .nonRealTime,
                                                       deviceID: 0x7F,
                                                       subID1: 0x01,
@@ -669,7 +669,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_ChannelPrefix_event() throws {
         
-        let smfEvent = MIDI.File.Event.channelPrefix(.none,
+        let smfEvent = MIDI.File.Event.channelPrefix(delta: .none,
                                                      channel: 4)
         
         // convert MIDI.File.Event case to MIDI.Event case, preserving payloads
@@ -682,7 +682,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_KeySignature_event() throws {
         
-        let smfEvent = MIDI.File.Event.keySignature(.none,
+        let smfEvent = MIDI.File.Event.keySignature(delta: .none,
                                                     flatsOrSharps: -2,
                                                     majorKey: true)
         
@@ -696,7 +696,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_PortPrefix_event() throws {
         
-        let smfEvent = MIDI.File.Event.portPrefix(.none,
+        let smfEvent = MIDI.File.Event.portPrefix(delta: .none,
                                                   port: 4)
         
         // convert MIDI.File.Event case to MIDI.Event case, preserving payloads
@@ -709,7 +709,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_SequenceNumber_event() throws {
         
-        let smfEvent = MIDI.File.Event.sequenceNumber(.none,
+        let smfEvent = MIDI.File.Event.sequenceNumber(delta: .none,
                                                       sequence: 4)
         
         // convert MIDI.File.Event case to MIDI.Event case, preserving payloads
@@ -722,7 +722,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_SequencerSpecific_event() throws {
         
-        let smfEvent = MIDI.File.Event.sequencerSpecific(.none,
+        let smfEvent = MIDI.File.Event.sequencerSpecific(delta: .none,
                                                          data: [0x12, 0x34])
         
         // convert MIDI.File.Event case to MIDI.Event case, preserving payloads
@@ -735,7 +735,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_SMPTEOffset_event() throws {
         
-        let smfEvent = MIDI.File.Event.smpteOffset(.none,
+        let smfEvent = MIDI.File.Event.smpteOffset(delta: .none,
                                                    hr: 1,
                                                    min: 2,
                                                    sec: 3,
@@ -754,7 +754,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_Tempo_event() throws {
         
-        let smfEvent = MIDI.File.Event.tempo(.none,
+        let smfEvent = MIDI.File.Event.tempo(delta: .none,
                                              bpm: 140.0)
         
         
@@ -768,7 +768,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_Text_event() throws {
         
-        let smfEvent = MIDI.File.Event.text(.none,
+        let smfEvent = MIDI.File.Event.text(delta: .none,
                                             type: .trackOrSequenceName,
                                             string: "Piano")
         
@@ -783,7 +783,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_TimeSignature_event() throws {
         
-        let smfEvent = MIDI.File.Event.timeSignature(.none,
+        let smfEvent = MIDI.File.Event.timeSignature(delta: .none,
                                                      numerator: 2,
                                                      denominator: 2)
         
@@ -798,7 +798,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_UnrecognizedMeta_event() throws {
         
-        let smfEvent = MIDI.File.Event.unrecognizedMeta(.none,
+        let smfEvent = MIDI.File.Event.unrecognizedMeta(delta: .none,
                                                         metaType: 0x30,
                                                         data: [0x12, 0x34])
         
@@ -813,7 +813,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
     
     func testMIDI_File_Event_XMFPatchTypePrefix_event() throws {
         
-        let smfEvent = MIDI.File.Event.xmfPatchTypePrefix(.none,
+        let smfEvent = MIDI.File.Event.xmfPatchTypePrefix(delta: .none,
                                                           patchSet: .DLS)
         
         

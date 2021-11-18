@@ -20,7 +20,7 @@ final class MIDIFileEncodeTests: XCTestCase {
         
         midiFile.chunks = [
             .track([
-                .text(.none, type: .trackOrSequenceName, string: "Seq-1"),
+                .text(delta: .none, type: .trackOrSequenceName, string: "Seq-1"),
             ]),
         ]
         
@@ -40,26 +40,26 @@ final class MIDIFileEncodeTests: XCTestCase {
         
         midiFile.chunks = [
             .track([
-                .text(.none, type: .trackOrSequenceName, string: "Seq-1"),
-                .smpteOffset(.none, hr: 0, min: 0, sec: 0, fr: 0, subFr: 0, frRate: ._2997dfps),
-                .timeSignature(.none, numerator: 4, denominator: 2),
-                .tempo(.none, bpm: 120.0),
-                .text(.ticks(3_456_000), type: .marker, string: "Unlocked Marker 1_00_00_00"),
-                .text(.ticks(960), type: .cuePoint, string: "Locked Marker 1_00_01_00"),
-                .text(.ticks(960), type: .marker, string: "Unlocked Marker 1_00_02_00"),
-                .text(.ticks(960), type: .cuePoint, string: "Locked Marker 1_00_03_00"),
-                .text(.ticks(960), type: .marker, string: "Unlocked Marker 1_00_04_00")
+                .text(delta: .none, type: .trackOrSequenceName, string: "Seq-1"),
+                .smpteOffset(delta: .none, hr: 0, min: 0, sec: 0, fr: 0, subFr: 0, frRate: ._2997dfps),
+                .timeSignature(delta: .none, numerator: 4, denominator: 2),
+                .tempo(delta: .none, bpm: 120.0),
+                .text(delta: .ticks(3_456_000), type: .marker, string: "Unlocked Marker 1_00_00_00"),
+                .text(delta: .ticks(960), type: .cuePoint, string: "Locked Marker 1_00_01_00"),
+                .text(delta: .ticks(960), type: .marker, string: "Unlocked Marker 1_00_02_00"),
+                .text(delta: .ticks(960), type: .cuePoint, string: "Locked Marker 1_00_03_00"),
+                .text(delta: .ticks(960), type: .marker, string: "Unlocked Marker 1_00_04_00")
             ]),
             
                 .track([
-                    .text(.none, type: .trackOrSequenceName, string: "MIDI-1"),
-                    .noteOn(.ticks(3_458_935), note: 59, velocity: .midi1(64), channel: 0),
-                    .noteOff(.ticks(864), note: 59, velocity: .midi1(64), channel: 0)
+                    .text(delta: .none, type: .trackOrSequenceName, string: "MIDI-1"),
+                    .noteOn(delta: .ticks(3_458_935), note: 59, velocity: .midi1(64), channel: 0),
+                    .noteOff(delta: .ticks(864), note: 59, velocity: .midi1(64), channel: 0)
                 ]),
             
                 .track([
-                    .text(.none, type: .trackOrSequenceName, string: "MIDI-2"),
-                    .channelPrefix(.none, channel: 0)
+                    .text(delta: .none, type: .trackOrSequenceName, string: "MIDI-2"),
+                    .channelPrefix(delta: .none, channel: 0)
                 ]),
         ]
         

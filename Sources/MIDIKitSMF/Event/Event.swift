@@ -37,7 +37,7 @@ extension MIDI.File {
 
 public extension MIDI.File.Event {
     
-    static func cc(_ delta: MIDI.File.DeltaTime = .none,
+    static func cc(delta: MIDI.File.DeltaTime = .none,
                    controller: MIDI.Event.CC.Controller,
                    value: MIDI.Event.CC.Value,
                    channel: MIDI.UInt4 = 0) -> Self
@@ -48,7 +48,7 @@ public extension MIDI.File.Event {
                          channel: channel))
     }
     
-    static func cc(_ delta: MIDI.File.DeltaTime = .none,
+    static func cc(delta: MIDI.File.DeltaTime = .none,
                    controller: MIDI.UInt7,
                    value: MIDI.Event.CC.Value,
                    channel: MIDI.UInt4 = 0) -> Self
@@ -59,14 +59,14 @@ public extension MIDI.File.Event {
                          channel: channel))
     }
     
-    static func channelPrefix(_ delta: MIDI.File.DeltaTime = .none,
+    static func channelPrefix(delta: MIDI.File.DeltaTime = .none,
                               channel: MIDI.UInt4) -> Self
     {
         .channelPrefix(delta: delta,
                        event: .init(channel: channel))
     }
     
-    static func keySignature(_ delta: MIDI.File.DeltaTime = .none,
+    static func keySignature(delta: MIDI.File.DeltaTime = .none,
                              flatsOrSharps: Int8,
                              majorKey: Bool) -> Self
     {
@@ -75,7 +75,7 @@ public extension MIDI.File.Event {
                                    majorKey: majorKey))
     }
     
-    static func noteOff(_ delta: MIDI.File.DeltaTime = .none,
+    static func noteOff(delta: MIDI.File.DeltaTime = .none,
                         note: MIDI.Note,
                         velocity: MIDI.Event.Note.Velocity,
                         channel: MIDI.UInt4 = 0) -> Self
@@ -86,7 +86,7 @@ public extension MIDI.File.Event {
                               channel: channel))
     }
     
-    static func noteOff(_ delta: MIDI.File.DeltaTime = .none,
+    static func noteOff(delta: MIDI.File.DeltaTime = .none,
                         note: MIDI.UInt7,
                         velocity: MIDI.Event.Note.Velocity,
                         channel: MIDI.UInt4 = 0) -> Self
@@ -97,7 +97,7 @@ public extension MIDI.File.Event {
                               channel: channel))
     }
     
-    static func noteOn(_ delta: MIDI.File.DeltaTime = .none,
+    static func noteOn(delta: MIDI.File.DeltaTime = .none,
                        note: MIDI.Note,
                        velocity: MIDI.Event.Note.Velocity,
                        channel: MIDI.UInt4 = 0) -> Self
@@ -108,7 +108,7 @@ public extension MIDI.File.Event {
                              channel: channel))
     }
     
-    static func noteOn(_ delta: MIDI.File.DeltaTime = .none,
+    static func noteOn(delta: MIDI.File.DeltaTime = .none,
                        note: MIDI.UInt7,
                        velocity: MIDI.Event.Note.Velocity,
                        channel: MIDI.UInt4 = 0) -> Self
@@ -119,7 +119,7 @@ public extension MIDI.File.Event {
                              channel: channel))
     }
     
-    static func notePressure(_ delta: MIDI.File.DeltaTime = .none,
+    static func notePressure(delta: MIDI.File.DeltaTime = .none,
                              note: MIDI.Note,
                              amount: MIDI.Event.Note.Pressure.Amount,
                              channel: MIDI.UInt4 = 0) -> Self
@@ -130,7 +130,7 @@ public extension MIDI.File.Event {
                                    channel: channel))
     }
     
-    static func notePressure(_ delta: MIDI.File.DeltaTime = .none,
+    static func notePressure(delta: MIDI.File.DeltaTime = .none,
                              note: MIDI.UInt7,
                              amount: MIDI.Event.Note.Pressure.Amount,
                              channel: MIDI.UInt4 = 0) -> Self
@@ -141,7 +141,7 @@ public extension MIDI.File.Event {
                                    channel: channel))
     }
     
-    static func pitchBend(_ delta: MIDI.File.DeltaTime = .none,
+    static func pitchBend(delta: MIDI.File.DeltaTime = .none,
                           lsb: UInt8,
                           msb: UInt8,
                           channel: MIDI.UInt4 = 0) -> Self
@@ -151,7 +151,7 @@ public extension MIDI.File.Event {
                           event: .init(value: value, channel: channel))
     }
     
-    static func pitchBend(_ delta: MIDI.File.DeltaTime = .none,
+    static func pitchBend(delta: MIDI.File.DeltaTime = .none,
                           value: MIDI.Event.PitchBend.Value,
                           channel: MIDI.UInt4 = 0) -> Self
     {
@@ -159,14 +159,14 @@ public extension MIDI.File.Event {
                    event: .init(value: value, channel: channel))
     }
     
-    static func portPrefix(_ delta: MIDI.File.DeltaTime = .none,
+    static func portPrefix(delta: MIDI.File.DeltaTime = .none,
                            port: MIDI.UInt7) -> Self
     {
         .portPrefix(delta: delta,
                     event: .init(port: port))
     }
     
-    static func pressure(_ delta: MIDI.File.DeltaTime = .none,
+    static func pressure(delta: MIDI.File.DeltaTime = .none,
                          amount: MIDI.Event.Pressure.Amount,
                          channel: MIDI.UInt4 = 0) -> Self
     {
@@ -175,7 +175,7 @@ public extension MIDI.File.Event {
                                channel: channel))
     }
     
-    static func programChange(_ delta: MIDI.File.DeltaTime = .none,
+    static func programChange(delta: MIDI.File.DeltaTime = .none,
                               program: MIDI.UInt7,
                               channel: MIDI.UInt4 = 0) -> Self
     {
@@ -185,21 +185,21 @@ public extension MIDI.File.Event {
                                     channel: channel))
     }
     
-    static func sequenceNumber(_ delta: MIDI.File.DeltaTime = .none,
+    static func sequenceNumber(delta: MIDI.File.DeltaTime = .none,
                                sequence: UInt16) -> Self
     {
         .sequenceNumber(delta: delta,
                         event: .init(sequence: sequence))
     }
     
-    static func sequencerSpecific(_ delta: MIDI.File.DeltaTime = .none,
+    static func sequencerSpecific(delta: MIDI.File.DeltaTime = .none,
                                   data: [MIDI.Byte]) -> Self
     {
         .sequencerSpecific(delta: delta,
                            event: .init(data: data))
     }
     
-    static func smpteOffset(_ delta: MIDI.File.DeltaTime = .none,
+    static func smpteOffset(delta: MIDI.File.DeltaTime = .none,
                             hr: UInt8,
                             min: UInt8,
                             sec: UInt8,
@@ -216,14 +216,14 @@ public extension MIDI.File.Event {
                                   frRate: frRate))
     }
     
-    static func smpteOffset(_ delta: MIDI.File.DeltaTime = .none,
+    static func smpteOffset(delta: MIDI.File.DeltaTime = .none,
                             scaling: Timecode) -> Self
     {
         .smpteOffset(delta: delta,
                      event: .init(scaling: scaling))
     }
     
-    static func sysEx(_ delta: MIDI.File.DeltaTime = .none,
+    static func sysEx(delta: MIDI.File.DeltaTime = .none,
                       manufacturer: MIDI.Event.SysExManufacturer,
                       data: [MIDI.Byte]) -> Self
     {
@@ -232,14 +232,14 @@ public extension MIDI.File.Event {
                             data: data))
     }
     
-    static func tempo(_ delta: MIDI.File.DeltaTime = .none,
+    static func tempo(delta: MIDI.File.DeltaTime = .none,
                       bpm: Double) -> Self
     {
         .tempo(delta: delta,
                event: .init(bpm: bpm))
     }
     
-    static func text(_ delta: MIDI.File.DeltaTime = .none,
+    static func text(delta: MIDI.File.DeltaTime = .none,
                      type: Text.EventType,
                      string: ASCIIString) -> Self
     {
@@ -248,7 +248,7 @@ public extension MIDI.File.Event {
                            string: string))
     }
     
-    static func timeSignature(_ delta: MIDI.File.DeltaTime = .none,
+    static func timeSignature(delta: MIDI.File.DeltaTime = .none,
                               numerator: UInt8,
                               denominator: UInt8) -> Self
     {
@@ -257,7 +257,7 @@ public extension MIDI.File.Event {
                                     denominator: denominator))
     }
     
-    static func unrecognizedMeta(_ delta: MIDI.File.DeltaTime = .none,
+    static func unrecognizedMeta(delta: MIDI.File.DeltaTime = .none,
                                  metaType: UInt8,
                                  data: [MIDI.Byte]) -> Self
     {
@@ -266,7 +266,7 @@ public extension MIDI.File.Event {
                                        data: data))
     }
     
-    static func universalSysEx(_ delta: MIDI.File.DeltaTime = .none,
+    static func universalSysEx(delta: MIDI.File.DeltaTime = .none,
                                universalType: MIDI.Event.UniversalSysExType,
                                deviceID: MIDI.UInt7,
                                subID1: MIDI.UInt7,
@@ -281,7 +281,7 @@ public extension MIDI.File.Event {
                                      data: data))
     }
     
-    static func xmfPatchTypePrefix(_ delta: MIDI.File.DeltaTime = .none,
+    static func xmfPatchTypePrefix(delta: MIDI.File.DeltaTime = .none,
                                    patchSet: XMFPatchTypePrefix.PatchSet) -> Self
     {
         .xmfPatchTypePrefix(delta: delta,
