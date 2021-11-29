@@ -125,7 +125,7 @@ extension MIDI.File.Chunk.Header {
         
         guard let midiFileFormatRawValue = dataReader.read(bytes: 2)?.toUInt16(from: .bigEndian),
               (0 ... 2).contains(midiFileFormatRawValue),
-              let midiFileFormat = MIDI.File.Format(rawValue: midiFileFormatRawValue.uint8Exactly ?? 255)
+              let midiFileFormat = MIDI.File.Format(rawValue: midiFileFormatRawValue.uInt8Exactly ?? 255)
         else {
             throw MIDI.File.DecodeError.malformed(
                 "Could not read MIDI file format."
@@ -189,7 +189,7 @@ extension MIDI.File.Chunk.Header {
         data += [0x00, 0x00, 0x00, 0x06]
         
         // MIDI Format specification - 0, 1, or 2 (2 bytes: big endian)
-        data += format.rawValue.uint16.toData(.bigEndian)
+        data += format.rawValue.uInt16.toData(.bigEndian)
         
         // Track count as 16-bit number (2 bytes: big endian)
         if format == .singleTrack {
@@ -199,11 +199,11 @@ extension MIDI.File.Chunk.Header {
                 )
             }
             
-            data += 1.uint16.toData(.bigEndian) // only 1 track allowed
+            data += 1.uInt16.toData(.bigEndian) // only 1 track allowed
             
         } else {
             // For format 1 or 2 files, track count can be any value. There is no limitation as far as the file format is concerned, though sequencer software will generally impose a practical limit.
-            data += withChunkCount.uint16.toData(.bigEndian)
+            data += withChunkCount.uInt16.toData(.bigEndian)
         }
         
         // Time division: ticks per quarter note

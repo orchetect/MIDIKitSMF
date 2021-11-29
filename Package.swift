@@ -23,7 +23,7 @@ let package = Package(
         .package(url: "https://github.com/orchetect/SwiftRadix", from: "1.0.3"),
         
         // MIDIKitSMF dependencies
-        .package(url: "https://github.com/orchetect/OTCore", from: "1.1.18"),
+        .package(url: "https://github.com/orchetect/OTCore", from: "1.1.22"),
         .package(url: "https://github.com/orchetect/SwiftASCII", from: "1.0.2"),
         .package(url: "https://github.com/orchetect/TimecodeKit", from: "1.2.6"),
     ],

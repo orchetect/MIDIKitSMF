@@ -163,7 +163,7 @@ extension MIDI.File.Chunk.Track {
             
             if let foundEvent = foundEvent {
                 // inject delta time into event
-                let newEventDelta: MIDI.File.DeltaTime = .ticks(eventDeltaTime.value.uint32)
+                let newEventDelta: MIDI.File.DeltaTime = .ticks(eventDeltaTime.value.uInt32)
                 
                 // offset buffer length if runningStatusByte is present
                 let chunkBufferLength = runningStatusByte != nil

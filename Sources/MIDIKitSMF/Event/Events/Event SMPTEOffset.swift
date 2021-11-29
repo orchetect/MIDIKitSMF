@@ -147,11 +147,11 @@ extension MIDI.File.Event {
             
             frameRate = smpteTCAndRate.smpteFR
             
-            hours = smpteTC.hours.uint8Exactly ?? 0
-            minutes = smpteTC.minutes.uint8Exactly ?? 0
-            seconds = smpteTC.seconds.uint8Exactly ?? 0
-            frames = smpteTC.frames.uint8Exactly ?? 0
-            subframes = smpteTC.subFrames.uint8Exactly ?? 0
+            hours = smpteTC.hours.uInt8Exactly ?? 0
+            minutes = smpteTC.minutes.uInt8Exactly ?? 0
+            seconds = smpteTC.seconds.uInt8Exactly ?? 0
+            frames = smpteTC.frames.uInt8Exactly ?? 0
+            subframes = smpteTC.subFrames.uInt8Exactly ?? 0
             
         }
         
