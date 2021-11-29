@@ -95,7 +95,7 @@ extension MIDI.File.Chunk.Track {
         
         // running status
         
-        var runningStatus: MIDIFileEvent?
+        var runningStatus: MIDIFileEventPayload?
         
         while !endOfChunk {
             eventsCounted += 1
@@ -152,7 +152,7 @@ extension MIDI.File.Chunk.Track {
             
             // iterate through all known event initializers
             
-            var foundEvent: (newEvent: MIDIFileEvent, bufferLength: Int)?
+            var foundEvent: (newEvent: MIDIFileEventPayload, bufferLength: Int)?
             
             for eventDef in MIDI.File.Chunk.Track.eventDecodeOrder.concreteTypes {
                 if let success = try? eventDef.initFrom(midi1SMFRawBytesStream: readBuffer) {
@@ -163,7 +163,7 @@ extension MIDI.File.Chunk.Track {
             
             if let foundEvent = foundEvent {
                 // inject delta time into event
-                let newEventDelta: MIDI.File.DeltaTime = .ticks(eventDeltaTime.value.uint32)
+                let newEventDelta: MIDI.File.DeltaTime = .ticks(eventDeltaTime.value.uInt32)
                 
                 // offset buffer length if runningStatusByte is present
                 let chunkBufferLength = runningStatusByte != nil

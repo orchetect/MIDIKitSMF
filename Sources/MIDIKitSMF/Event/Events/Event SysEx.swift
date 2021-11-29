@@ -74,7 +74,7 @@ extension MIDI.File.Event {
     
 }
 
-extension MIDI.Event.SysEx: MIDIFileEvent {
+extension MIDI.Event.SysEx: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .sysEx
     
@@ -156,7 +156,7 @@ extension MIDI.File.Event {
 }
 
 
-extension MIDI.Event.UniversalSysEx: MIDIFileEvent {
+extension MIDI.Event.UniversalSysEx: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .universalSysEx
     

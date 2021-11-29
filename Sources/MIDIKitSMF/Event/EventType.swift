@@ -37,7 +37,7 @@ extension MIDI.File.Event {
 
 extension MIDI.File.Event.EventType {
     
-    public var concreteType: MIDIFileEvent.Type {
+    public var concreteType: MIDIFileEventPayload.Type {
         
         switch self {
         case .cc: return MIDI.File.Event.CC.self
@@ -67,7 +67,7 @@ extension MIDI.File.Event.EventType {
 
 extension Collection where Element == MIDI.File.Event.EventType {
     
-    public var concreteTypes: [MIDIFileEvent.Type] {
+    public var concreteTypes: [MIDIFileEventPayload.Type] {
         
         map(\.concreteType.self)
         

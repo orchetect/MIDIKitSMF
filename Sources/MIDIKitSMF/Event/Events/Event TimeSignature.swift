@@ -51,7 +51,7 @@ extension MIDI.File.Event {
     
 }
 
-extension MIDI.File.Event.TimeSignature : MIDIFileEvent {
+extension MIDI.File.Event.TimeSignature : MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .timeSignature
     

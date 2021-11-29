@@ -33,7 +33,7 @@ extension MIDI.File.Event {
     
 }
 
-extension MIDI.File.Event.PortPrefix: MIDIFileEvent {
+extension MIDI.File.Event.PortPrefix: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .portPrefix
     

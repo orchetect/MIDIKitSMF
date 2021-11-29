@@ -30,7 +30,7 @@ extension MIDI.File.Event {
     
 }
 
-extension MIDI.File.Event.SequencerSpecific: MIDIFileEvent {
+extension MIDI.File.Event.SequencerSpecific: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .sequencerSpecific
     

@@ -42,7 +42,7 @@ extension MIDI.File.Event {
     
 }
 
-extension MIDI.File.Event.SequenceNumber: MIDIFileEvent {
+extension MIDI.File.Event.SequenceNumber: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .sequenceNumber
     

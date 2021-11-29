@@ -41,7 +41,7 @@ extension MIDI.File.Event {
     
 }
 
-extension MIDI.File.Event.UnrecognizedMeta: MIDIFileEvent {
+extension MIDI.File.Event.UnrecognizedMeta: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .unrecognizedMeta
     
