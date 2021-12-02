@@ -89,7 +89,7 @@ extension MIDI.File {
                 default:
                     // as per Standard MIDI File Spec 1.0,
                     // unrecognized chunks should be skipped and not throw an error
-                    Log.debug("Encountered unrecognized MIDI file chunk identifier: \(chunkTypeString)")
+                    logger.debug("Encountered unrecognized MIDI file chunk identifier: \(chunkTypeString)")
                     
                     let newUnrecognizedChunk = try Chunk.UnrecognizedChunk(midi1SMFRawBytesStream: chunkData.bytes)
                     newChunk = .other(newUnrecognizedChunk)
