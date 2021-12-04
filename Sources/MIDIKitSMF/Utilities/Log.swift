@@ -5,5 +5,10 @@
 
 @_implementationOnly import OTCore
 
-let logger = OSLogger(enabled: true,
-                      useEmoji: .disabled)
+let logger = OSLogger {
+    #if RELEASE
+    $0.defaultTemplate = .minimal()
+    #else
+    $0.defaultTemplate = .withEmoji()
+    #endif
+}
