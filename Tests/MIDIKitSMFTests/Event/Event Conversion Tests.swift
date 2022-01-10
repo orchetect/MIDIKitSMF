@@ -15,8 +15,8 @@ final class Event_Conversion_EventToSMFEvent_Tests: XCTestCase {
         
         let event = MIDI.Event.noteOn(60,
                                       velocity: .midi1(64),
-                                      channel: 1,
                                       attribute: .profileSpecific(data: 0x1234),
+                                      channel: 1,
                                       group: 2,
                                       midi1ZeroVelocityAsNoteOff: true)
         
@@ -43,8 +43,8 @@ final class Event_Conversion_EventToSMFEvent_Tests: XCTestCase {
         
         let event = MIDI.Event.noteOff(60,
                                        velocity: .midi1(0),
-                                       channel: 1,
                                        attribute: .profileSpecific(data: 0x1234),
+                                       channel: 1,
                                        group: 2)
         
         // convert MIDI.Event case to MIDI.File.Event case, preserving payloads
