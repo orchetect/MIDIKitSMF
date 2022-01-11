@@ -60,7 +60,7 @@ extension MIDI.Event {
         
         let sysExFullSlice = [0xF0] + Array(rawBytes[1 + length.byteLength ..< expectedFullLength])
         
-        return try MIDI.Event.sysEx(rawBytes: sysExFullSlice)
+        return try MIDI.Event.sysEx7(rawBytes: sysExFullSlice)
             
     }
     
@@ -70,11 +70,11 @@ extension MIDI.Event {
 
 extension MIDI.File.Event {
     
-    public typealias SysEx = MIDI.Event.SysEx
+    public typealias SysEx = MIDI.Event.SysEx7
     
 }
 
-extension MIDI.Event.SysEx: MIDIFileEventPayload {
+extension MIDI.Event.SysEx7: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .sysEx
     
@@ -83,9 +83,9 @@ extension MIDI.Event.SysEx: MIDIFileEventPayload {
         let parsedSysEx = try MIDI.Event.sysEx(midi1SMFRawBytes: rawBytes)
         
         switch parsedSysEx {
-        case .sysEx(let sysEx):
+        case .sysEx7(let sysEx):
             self = sysEx
-        case .universalSysEx:
+        case .universalSysEx7:
             throw MIDI.Event.ParseError.invalidType
         default:
             throw MIDI.Event.ParseError.invalidType
@@ -151,12 +151,12 @@ extension MIDI.Event.SysEx: MIDIFileEventPayload {
 
 extension MIDI.File.Event {
     
-    public typealias UniversalSysEx = MIDI.Event.UniversalSysEx
+    public typealias UniversalSysEx = MIDI.Event.UniversalSysEx7
     
 }
 
 
-extension MIDI.Event.UniversalSysEx: MIDIFileEventPayload {
+extension MIDI.Event.UniversalSysEx7: MIDIFileEventPayload {
     
     public static let smfEventType: MIDI.File.Event.EventType = .universalSysEx
     
@@ -165,9 +165,9 @@ extension MIDI.Event.UniversalSysEx: MIDIFileEventPayload {
         let parsedSysEx = try MIDI.Event.sysEx(midi1SMFRawBytes: rawBytes)
         
         switch parsedSysEx {
-        case .sysEx:
+        case .sysEx7:
             throw MIDI.Event.ParseError.invalidType
-        case .universalSysEx(let universalSysEx):
+        case .universalSysEx7(let universalSysEx):
             self = universalSysEx
         default:
             throw MIDI.Event.ParseError.invalidType

@@ -66,7 +66,7 @@ final class Event_SysEx_Tests: XCTestCase {
                                                             0x7D,  // manufacturer ID
                                                             0xF7]) // termination byte
         
-        guard case .sysEx(let event) = sysEx else {
+        guard case .sysEx7(let event) = sysEx else {
             XCTFail() ; return
         }
         
@@ -86,7 +86,7 @@ final class Event_SysEx_Tests: XCTestCase {
                                                             0x34,  // data byte 2
                                                             0xF7]) // termination byte
         
-        guard case .sysEx(let event) = sysEx else {
+        guard case .sysEx7(let event) = sysEx else {
             XCTFail() ; return
         }
         
@@ -105,7 +105,7 @@ final class Event_SysEx_Tests: XCTestCase {
                                                             0x03,  // subID 2
                                                             0xF7]) // termination byte
         
-        guard case .universalSysEx(let event) = sysEx else {
+        guard case .universalSysEx7(let event) = sysEx else {
             XCTFail() ; return
         }
         
@@ -129,7 +129,7 @@ final class Event_SysEx_Tests: XCTestCase {
                                                             0x34,  // data byte 2
                                                             0xF7]) // termination byte
         
-        guard case .universalSysEx(let event) = sysEx else {
+        guard case .universalSysEx7(let event) = sysEx else {
             XCTFail() ; return
         }
         

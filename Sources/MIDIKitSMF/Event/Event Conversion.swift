@@ -44,11 +44,19 @@ extension MIDI.Event {
         case .pressure(let event):
             return .pressure(delta: delta, event: event)
             
-        case .sysEx(let event):
+        case .sysEx7(let event):
             return .sysEx(delta: delta, event: event)
             
-        case .universalSysEx(let event):
+        case .universalSysEx7(let event):
             return .universalSysEx(delta: delta, event: event)
+            
+        case .sysEx8:
+            // MIDI 2.0 only
+            return nil
+            
+        case .universalSysEx8:
+            // MIDI 2.0 only
+            return nil
             
         case .timecodeQuarterFrame,
              .songPositionPointer,
@@ -98,10 +106,10 @@ extension MIDI.File.Event {
             return .programChange(event)
             
         case .sysEx(_, let event):
-            return .sysEx(event)
+            return .sysEx7(event)
             
         case .universalSysEx(_, let event):
-            return .universalSysEx(event)
+            return .universalSysEx7(event)
             
         case .channelPrefix,
              .keySignature,

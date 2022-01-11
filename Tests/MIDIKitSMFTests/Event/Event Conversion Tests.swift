@@ -243,15 +243,15 @@ final class Event_Conversion_EventToSMFEvent_Tests: XCTestCase {
     
     func testMIDI_Event_SysEx_smfEvent() throws {
         
-        let event = MIDI.Event.sysEx(manufacturer: .educational(),
-                                     data: [0x12, 0x34],
-                                     group: 2)
+        let event = MIDI.Event.sysEx7(manufacturer: .educational(),
+                                      data: [0x12, 0x34],
+                                      group: 2)
         
         // convert MIDI.Event case to MIDI.File.Event case, preserving payloads
         let smfEvent = event.smfEvent(delta: .ticks(120))
         
         // extract MIDI.Event payload
-        guard case .sysEx(let unwrappedEvent) = event else {
+        guard case .sysEx7(let unwrappedEvent) = event else {
             XCTFail() ; return
         }
         
@@ -268,18 +268,18 @@ final class Event_Conversion_EventToSMFEvent_Tests: XCTestCase {
     
     func testMIDI_Event_UniversalSysEx_smfEvent() throws {
         
-        let event = MIDI.Event.universalSysEx(universalType: .nonRealTime,
-                                              deviceID: 0x7F,
-                                              subID1: 0x01,
-                                              subID2: 0x02,
-                                              data: [0x12, 0x34],
-                                              group: 2)
+        let event = MIDI.Event.universalSysEx7(universalType: .nonRealTime,
+                                               deviceID: 0x7F,
+                                               subID1: 0x01,
+                                               subID2: 0x02,
+                                               data: [0x12, 0x34],
+                                               group: 2)
         
         // convert MIDI.Event case to MIDI.File.Event case, preserving payloads
         let smfEvent = event.smfEvent(delta: .ticks(120))
         
         // extract MIDI.Event payload
-        guard case .universalSysEx(let unwrappedEvent) = event else {
+        guard case .universalSysEx7(let unwrappedEvent) = event else {
             XCTFail() ; return
         }
         
@@ -630,7 +630,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
         }
         
         // extract MIDI.Event payload
-        guard case .sysEx(let unwrappedEvent) = event else {
+        guard case .sysEx7(let unwrappedEvent) = event else {
             XCTFail() ; return
         }
         
@@ -658,7 +658,7 @@ final class Event_Conversion_SMFEventToEvent_Tests: XCTestCase {
         }
         
         // extract MIDI.Event payload
-        guard case .universalSysEx(let unwrappedEvent) = event else {
+        guard case .universalSysEx7(let unwrappedEvent) = event else {
             XCTFail() ; return
         }
         
