@@ -25,11 +25,11 @@ This extension adds abstractions for reading and writing Standard MIDI Files.
    import MIDIKitSMF
    ```
 
-3. See [Examples](https://github.com/orchetect/MIDIKitSMF/blob/master/Examples/) folder and [Docs](https://github.com/orchetect/MIDIKitSMF/blob/master/Docs/) folder for usage.
+3. See the MIDIKitSMF [Wiki](https://github.com/orchetect/MIDIKitSMF/wiki/) for usage examples.
 
 ## Documentation
 
-See [Docs](https://github.com/orchetect/MIDIKitSMF/blob/master/Docs/) folder.
+See the MIDIKitSMF [Wiki](https://github.com/orchetect/MIDIKitSMF/wiki/) for getting started info.
 
 ## Author
 
