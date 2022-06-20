@@ -60,7 +60,7 @@ extension MIDI.Event {
         
         let sysExFullSlice = [0xF0] + Array(rawBytes[1 + length.byteLength ..< expectedFullLength])
         
-        return try MIDI.Event(sysEx7RawBytes: sysExFullSlice)
+        return try MIDI.Event.sysEx7(rawBytes: sysExFullSlice)
             
     }
     
