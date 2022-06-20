@@ -70,7 +70,7 @@ final class Event_Conversion_EventToSMFEvent_Tests: XCTestCase {
         
         let event = MIDI.Event.noteCC(note: 60,
                                       controller: .registered(.modWheel),
-                                      value: 64,
+                                      value: .midi2(32768),
                                       channel: 1,
                                       group: 2)
         
