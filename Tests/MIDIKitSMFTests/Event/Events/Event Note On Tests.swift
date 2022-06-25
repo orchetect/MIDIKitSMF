@@ -16,7 +16,7 @@ final class Event_NoteOn_Tests: XCTestCase {
         
         let event = try MIDI.File.Event.NoteOn(midi1SMFRawBytes: bytes)
         
-        XCTAssertEqual(event.note, 1)
+        XCTAssertEqual(event.note.number, 1)
         XCTAssertEqual(event.velocity, .midi1(0x40))
         XCTAssertEqual(event.channel, 0)
         
@@ -40,7 +40,7 @@ final class Event_NoteOn_Tests: XCTestCase {
         
         let event = try MIDI.File.Event.NoteOn(midi1SMFRawBytes: bytes)
         
-        XCTAssertEqual(event.note, 60)
+        XCTAssertEqual(event.note.number, 60)
         XCTAssertEqual(event.velocity, .midi1(0x7F))
         XCTAssertEqual(event.channel, 1)
         
@@ -66,7 +66,7 @@ final class Event_NoteOn_Tests: XCTestCase {
         
         let event = try MIDI.File.Event.NoteOn(midi1SMFRawBytes: bytes)
         
-        XCTAssertEqual(event.note, 60)
+        XCTAssertEqual(event.note.number, 60)
         XCTAssertEqual(event.velocity, .midi1(0x00))
         XCTAssertEqual(event.channel, 0)
         
