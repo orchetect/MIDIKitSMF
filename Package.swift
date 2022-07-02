@@ -1,5 +1,4 @@
 // swift-tools-version:5.3
-// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
@@ -7,7 +6,7 @@ let package = Package(
     name: "MIDIKitSMF",
 
     platforms: [
-        .macOS(.v10_12), .iOS(.v10)
+        .macOS(.v10_12), .iOS(.v10), .tvOS(.v10), .watchOS(.v6)
     ],
 
     products: [
@@ -25,7 +24,7 @@ let package = Package(
         // MIDIKitSMF dependencies
         .package(url: "https://github.com/orchetect/OTCore", from: "1.4.1"),
         .package(url: "https://github.com/orchetect/SwiftASCII", from: "1.0.2"),
-        .package(url: "https://github.com/orchetect/TimecodeKit", from: "1.2.9"),
+        .package(url: "https://github.com/orchetect/TimecodeKit", from: "1.2.10"),
     ],
 
     targets: [
