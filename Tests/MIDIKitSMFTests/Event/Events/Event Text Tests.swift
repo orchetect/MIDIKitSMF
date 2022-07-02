@@ -3,7 +3,7 @@
 //  MIDIKitSMF • https://github.com/orchetect/MIDIKitSMF
 //
 
-#if !os(watchOS)
+#if shouldTestCurrentPlatform
 
 import XCTest
 @testable import MIDIKitSMF
