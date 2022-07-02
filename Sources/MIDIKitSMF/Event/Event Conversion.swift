@@ -72,6 +72,13 @@ extension MIDI.Event {
             // Not applicable to MIDI files.
             return nil
             
+        case .noOp,
+             .jrClock,
+             .jrTimestamp:
+            // MIDI 2.0 only
+            // Not applicable to MIDI files.
+            return nil
+            
         }
         
     }
